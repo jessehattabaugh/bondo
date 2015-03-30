@@ -63,10 +63,13 @@ document.registerElement('my-login', {
 ## Todo
 
 * You know, tests and all that due dilligence stuff
-* Support fields in textNodes
+* Support fields in textNodes: `<span>{{field}}</span>`
+* Interpolate values instead of replacing them entirely: `<input value="Mr. {{Username}}">`
 * Maybe use MutationObservers to two-way bind certain attributes instead of making you register eventhandler attributes
-* Handle boolean attributes like checked="checked"
-* Observe objects nested in models?
+* Handle boolean attributes: `checked="checked"`
+* Observe objects nested in models?: `{{user.name.first}}`
+* Maybe iterate over arrays and objects? `each={{collection}}`
+* Expressions? `hidden="{{!loggedIn}}"`
 
 ## License
 
