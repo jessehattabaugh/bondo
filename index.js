@@ -1,3 +1,5 @@
+"use strict";
+
 module.exports = function (element, model) {
   let walk = require('dom-walk');
   let template = document.querySelector(`#${element.localName}`);
@@ -41,7 +43,6 @@ module.exports = function (element, model) {
   });
   
   function bond(node, attr, key) {
-    console.dir(arguments);
     node[attr] = (typeof model[key] === 'function') ? model[key].bind(model): model[key];
   }
   
