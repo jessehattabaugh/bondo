@@ -4,7 +4,8 @@
   "description": "Declarative data binding for DOM Nodes using Object.observe()",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "browserify src/index.js --transform babelify --outfile index.js"
   },
   "repository": {
     "type": "git",
@@ -27,5 +28,10 @@
   "bugs": {
     "url": "https://github.com/jessehattabaugh/bondo/issues"
   },
-  "homepage": "https://github.com/jessehattabaugh/bondo"
+  "homepage": "https://github.com/jessehattabaugh/bondo",
+  "devDependencies": {
+    "babelify": "^5.0.4",
+    "browserify": "^9.0.3",
+    "dom-walk": "^0.1.1"
+  }
 }
