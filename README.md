@@ -29,7 +29,9 @@ var model = {
 document.body.appendChild(bondo('myTemplate', model));
 ```
 
-Works great with Custom Elements! There's a [polyfill](https://www.npmjs.com/package/document-register-element) for those too y'know?
+### Custom Elements
+
+Works great with [Custom Elements](https://w3c.github.io/webcomponents/spec/custom/)! There's a [polyfill](https://www.npmjs.com/package/document-register-element) for those too y'know?
 
 ```html
 <my-login></my-login>
