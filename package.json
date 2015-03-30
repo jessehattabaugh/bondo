@@ -1,0 +1,31 @@
+{
+  "name": "bondo",
+  "version": "1.0.0",
+  "description": "Declarative data binding for DOM Nodes using Object.observe()",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jessehattabaugh/bondo.git"
+  },
+  "keywords": [
+    "declarative",
+    "data",
+    "binding",
+    "dom",
+    "template",
+    "Object.observe()",
+    "observable",
+    "bond",
+    "bind",
+    "databinding"
+  ],
+  "author": "Jesse Hattabaugh <arkanciscan@gmail.com>",
+  "license": "Artistic License 2.0",
+  "bugs": {
+    "url": "https://github.com/jessehattabaugh/bondo/issues"
+  },
+  "homepage": "https://github.com/jessehattabaugh/bondo"
+}
