@@ -1,17 +1,16 @@
 # Bondo
 Declarative data binding for DOM Nodes using Object.observe()
 
-*Should* work in browsers that have Object.observe. To support other browsers use a [polyfill](https://www.npmjs.com/package/object.observe)!
+*Should* work in browsers that have [Object.observe](http://caniuse.com/#feat=object-observe). To support other browsers use a [polyfill](https://www.npmjs.com/package/object.observe)!
 
 Works great with Custom Elements! There's a [polyfill](https://www.npmjs.com/package/document-register-element) for those too y'know?
 
 ## Installation
-$npm install bondo
+$ npm install bondo
 
 ## Usage
 
-### html
-```
+```html
 <template id="myTemplate">
   <input value="{{username}}">
   <button onclick="{{greet}}">
@@ -20,8 +19,7 @@ $npm install bondo
 </template>
 ```
 
-### javascript
-```
+```js
 var bondo = require('bondo');
 
 var model = {

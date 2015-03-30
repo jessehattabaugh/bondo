@@ -2,11 +2,12 @@
 
 module.exports = function (element, model) {
   let walk = require('dom-walk');
-  let template = document.querySelector(`#${element.localName}`);
+  let id = (typeof element == 'string') ? element : element.localName;
+  let template = document.querySelector(`#${id}`);
   let node = document.importNode(template.content, true);
   let observed = {}; // {modelPropertyKey: [attrName: [domNode,...],...],...}
   
-  // walk the dom searching for attributes that contain {{keys}}
+  // walk the DOM searching for attributes that contain {{keys}}
   walk(node, function (n) {
     if (n.attributes) {
       for (let i = 0, j = n.attributes.length; i < j; i++) {
@@ -15,7 +16,7 @@ module.exports = function (element, model) {
         if (match) { // this attribute has a {{key}}
           let key = match[1];
           
-          // replace the attribute's value with the model.key
+          // perform the 
           bond(n, a.name, key);
         
           // store the attribute to update it when the model changes
@@ -26,7 +27,7 @@ module.exports = function (element, model) {
       }
     }
     else {
-      // todo: handle textNodes
+      // todo: handle textNodes too
     }
   });
   
@@ -44,6 +45,7 @@ module.exports = function (element, model) {
   
   function bond(node, attr, key) {
     node[attr] = (typeof model[key] === 'function') ? model[key].bind(model): model[key];
+    // todo: handle embedded {{fields}} instead of replacing whole value of attribute
   }
   
   return node;
