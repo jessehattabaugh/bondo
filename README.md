@@ -37,3 +37,4 @@ document.body.appendChild(bondo('myTemplate', model));
 * You know, tests and all that due dilligence stuff
 * Support fields in textNodes
 * Maybe use MutationObservers to two-way bind certain attributes instead of making you register eventhandler attributes
+* 
