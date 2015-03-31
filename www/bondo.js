@@ -3,11 +3,12 @@
 
 module.exports = function (element, model) {
   var walk = require("dom-walk");
-  var template = document.querySelector("#" + element.localName);
+  var id = typeof element == "string" ? element : element.localName;
+  var template = document.querySelector("#" + id);
   var node = document.importNode(template.content, true);
   var observed = {}; // {modelPropertyKey: [attrName: [domNode,...],...],...}
 
-  // walk the dom searching for attributes that contain {{keys}}
+  // walk the DOM searching for attributes that contain {{keys}}
   walk(node, function (n) {
     if (n.attributes) {
       for (var i = 0, j = n.attributes.length; i < j; i++) {
@@ -17,7 +18,7 @@ module.exports = function (element, model) {
           // this attribute has a {{key}}
           var key = match[1];
 
-          // replace the attribute's value with the model.key
+          // perform the
           bond(n, a.name, key);
 
           // store the attribute to update it when the model changes
@@ -44,12 +45,13 @@ module.exports = function (element, model) {
 
   function bond(node, attr, key) {
     node[attr] = typeof model[key] === "function" ? model[key].bind(model) : model[key];
+    // todo: handle embedded {{fields}} instead of replacing whole value of attribute
   }
 
   return node;
 };
 
-// todo: handle textNodes
+// todo: handle textNodes too
 
 },{"dom-walk":2}],2:[function(require,module,exports){
 var slice = Array.prototype.slice

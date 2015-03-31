@@ -4,8 +4,9 @@
   "description": "Declarative data binding for DOM Nodes using Object.observe()",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "browserify index.js --transform babelify --outfile www/bondo.js"
+    "test": "tape test.js",
+    "prepublish": "browserify index.js --transform babelify --outfile www/bondo.js",
+    "start": "cd test; wzrd test.js"
   },
   "repository": {
     "type": "git",

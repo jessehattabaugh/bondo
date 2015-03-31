@@ -4,7 +4,7 @@ module.exports = function (element, model) {
   let walk = require('dom-walk');
   let id = (typeof element == 'string') ? element : element.localName;
   let template = document.querySelector(`#${id}`);
-  let node = document.importNode(template.content, true);
+  let node = document.importNode(template.content || template, true);
   let observed = {}; // {modelPropertyKey: [attrName: [domNode,...],...],...}
   
   // walk the DOM searching for attributes that contain {{keys}}
