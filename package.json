@@ -30,10 +30,14 @@
     "url": "https://github.com/jessehattabaugh/bondo/issues"
   },
   "homepage": "https://github.com/jessehattabaugh/bondo",
+  "dependencies": {
+    "dom-walk": "^0.1.1"
+  },
   "devDependencies": {
     "babelify": "^5.0.4",
     "browserify": "^9.0.3",
-    "dom-walk": "^0.1.1"
+    "object.observe": "^0.2.3",
+    "tape": "^3.5.0"
   },
   "testling": {
     "browsers": [
@@ -43,7 +47,7 @@
       "ie/6.0...latest",
       "opera/10...latest",
       "iphone/6.0...latest",
-      "ipad/6.0...latest"
+      "ipad/6.0...latest",
       "android-browser/4.2...latest"
     ],
     "files": "test/*.js",

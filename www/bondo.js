@@ -5,7 +5,7 @@ module.exports = function (element, model) {
   var walk = require("dom-walk");
   var id = typeof element == "string" ? element : element.localName;
   var template = document.querySelector("#" + id);
-  var node = document.importNode(template.content, true);
+  var node = document.importNode(template.content || template, true);
   var observed = {}; // {modelPropertyKey: [attrName: [domNode,...],...],...}
 
   // walk the DOM searching for attributes that contain {{keys}}
@@ -32,6 +32,7 @@ module.exports = function (element, model) {
 
   // observe the model for changes and update any attributes that are bound
   node.observer = Object.observe(model, function (changes) {
+    console.log("change");
     var key = changes[0].name;
     if (observed[key]) {
       // the changed property is bound
