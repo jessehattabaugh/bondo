@@ -60,6 +60,8 @@ document.registerElement('my-login', {
 })
 ```
 
+[![browser support](https://ci.testling.com/jessehattabaugh/bondo.png)](https://ci.testling.com/jessehattabaugh/bondo)
+
 ## Todo
 
 * You know, tests and all that due dilligence stuff
