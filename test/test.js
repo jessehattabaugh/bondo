@@ -18,3 +18,10 @@ test('when model properties change, attributes change', function (t) {
     t.equal(el.querySelector('input').value, 'user3');
   }, 0); 
 });
+
+test('expressions work', function (t) {
+  t.plan(1);
+  var model = {foo: 'baz', bar: 'bam'};
+  var el = bondo('templateThree', model);
+  t.equal(el.querySelector('input').value, 'bazbam');
+});
