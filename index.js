@@ -14,15 +14,34 @@ module.exports = function (element, model) {
         let a = n.attributes[i];
         let match = a.value.match(/\{\{(.*)\}\}/);
         if (match) { // this attribute has a {{key}}
+          let expr = match[1];
+          
+          let fn = new Function('model', `with(model){ return ${expr}}`);
+          
+          let val = fn(model);
+          
+          let reverse = require('reverse-string');
+          
+          let props = reverse(Object.getOwnPropertyNames(model).join('|'));
+         
+          //let replaced = expr.replace(new RegExp(`\.(${props})`, 'g'), ' ');
+          console.info(props);
+          let used = reverse(expr).match(new RegExp(`\b(${props})\b(?!.)`));
+          
+          //console.warn(replaced);
+          console.info(used);
+          
+          /*
           let key = match[1];
           
-          // perform the 
+           // perform the 
           bond(n, a.name, key);
         
           // store the attribute to update it when the model changes
           let attrArray = observed[key] || (observed[key] = []);
           let nodeArray = attrArray[a.name] || (attrArray[a.name] = []);
           nodeArray.push(n);
+          */
         }
       }
     }
@@ -34,6 +53,7 @@ module.exports = function (element, model) {
   // observe the model for changes and update any attributes that are bound
   node.observer = Object.observe(model, function (changes) {
     console.log('change');
+    /*
     let key = changes[0].name;
     if (observed[key]) { // the changed property is bound
       for (let attr in observed[key]) {
@@ -42,11 +62,15 @@ module.exports = function (element, model) {
         }
       }
     }
+    */
   });
   
   function bond(node, attr, key) {
     node[attr] = (typeof model[key] === 'function') ? model[key].bind(model): model[key];
     // todo: handle embedded {{fields}} instead of replacing whole value of attribute
+    
+    
+    
   }
   
   return node;

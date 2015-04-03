@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "tape test.js",
-    "prepublish": "browserify index.js --transform babelify --outfile www/bondo.js",
-    "start": "cd test; wzrd test.js"
+    "prepublish": "browserify index.js -t babelify -o www/bondo.js",
+    "start": "cd test; wzrd test.js -- -t babelify"
   },
   "repository": {
     "type": "git",
@@ -37,6 +37,7 @@
     "babelify": "^5.0.4",
     "browserify": "^9.0.3",
     "object.observe": "^0.2.3",
+    "reverse-string": "0.0.4",
     "tape": "^3.5.0"
   },
   "testling": {
