@@ -38,7 +38,7 @@ Works great with [Custom Elements](https://w3c.github.io/webcomponents/spec/cust
 
 <template id="my-login">
   <button hidden="{{isLoggedIn}}" onclick="{{login}}">Login</button>
-  <a hidden="{{!isLoggedIn}}" href="profile/{{username}}">{{username}}</span>
+  <a hidden="{{isUsernameHidden}}">{{username}}</span>
 </template>
 ```
 
@@ -48,9 +48,11 @@ document.registerElement('my-login', {
     createdCallback: {
       value: function () {
         this.appendChild(bondo(this, {
-          showLoginButton: false,
+          isUsernameHidden: 'hidden',
+          loginHidden: ''
           login: function () {
-            this.isLoggedIn = true;
+            this.loginHidden = 'hidden';
+            this.isUsernameHidden: '';
             this.username = 'jesse';
           }
         }));
