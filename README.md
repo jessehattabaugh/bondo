@@ -1,5 +1,5 @@
 # Bondo
-Declarative data binding for DOM Nodes using Object.observe().
+Bind an object to a VDOM.
 
 *Should* work in browsers that have [Object.observe](http://caniuse.com/#feat=object-observe). To support other browsers use a [polyfill](https://www.npmjs.com/package/object.observe)!
 
@@ -16,48 +16,43 @@ Declarative data binding for DOM Nodes using Object.observe().
 
 ```js
 var bondo = require('bondo');
+var h = bondo.h;
 
-var model = {
-  username: 'Friend',
-  greet: function () {
-    alert('Hello ' + this.username);
+var state = {
+  username: null,
+  loggedIn: false
+};
+
+var actions = {
+  changedUsername: function (e) {
+    state.username = e.target.value;
+  },
+  login: function() {
+    state.loggedIn = true;
   }
 };
 
-document.body.appendChild(bondo('myTemplate', model));
+function render(state, actions) {
+  return h('main', [
+    h('h1', 'Hello ' + state.username || 'World'),
+    h('input', {onchange: actions.changedUsername}),
+    h('button', {onclick: actions.login}, "Login")
+  ]);
+}
+
+document.body.appendChild(bondo(element, render, state, actions));
 ```
 
-### Custom Elements
+### Components
 
-Works great with [Custom Elements](https://w3c.github.io/webcomponents/spec/custom/)! There's a [polyfill](https://www.npmjs.com/package/document-register-element) for those too y'know?
+```js
+bondo.component('my-login', render, state, actions);
+```
+
+Then use it as a standard [Custom Element](https://w3c.github.io/webcomponents/spec/custom/). 
 
 ```html
 <my-login></my-login>
-
-<template id="my-login">
-  <button hidden="{{isLoggedIn}}" onclick="{{login}}">Login</button>
-  <a hidden="{{isUsernameHidden}}">{{username}}</span>
-</template>
-```
-
-```js
-document.registerElement('my-login', {
-  prototype: Object.create(HTMLElement.prototype, {
-    createdCallback: {
-      value: function () {
-        this.appendChild(bondo(this, {
-          isUsernameHidden: 'hidden',
-          loginHidden: ''
-          login: function () {
-            this.loginHidden = 'hidden';
-            this.isUsernameHidden: '';
-            this.username = 'jesse';
-          }
-        }));
-      }
-    }
-  })
-})
 ```
 
 [![browser support](https://ci.testling.com/jessehattabaugh/bondo.png)](https://ci.testling.com/jessehattabaugh/bondo)
