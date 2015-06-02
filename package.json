@@ -6,7 +6,7 @@
   "scripts": {
     "test": "tape test.js",
     "prepublish": "browserify index.js --transform babelify --outfile www/bondo.js",
-    "start": "cd test; wzrd test.js"
+    "start": "cd test; wzrd test.js -- --transform babelify"
   },
   "repository": {
     "type": "git",
@@ -31,26 +31,11 @@
   },
   "homepage": "https://github.com/jessehattabaugh/bondo",
   "dependencies": {
-    "dom-walk": "^0.1.1"
-  },
-  "devDependencies": {
-    "babelify": "^5.0.4",
-    "browserify": "^9.0.3",
+    "babelify": "^6.1.2",
+    "browserify": "^10.2.3",
+    "dom-walk": "^0.1.1",
     "object.observe": "^0.2.3",
-    "tape": "^3.5.0"
-  },
-  "testling": {
-    "browsers": [
-      "chrome/4.0...latest",
-      "ff/3.0...latest",
-      "safari/4.0...latest",
-      "ie/6.0...latest",
-      "opera/10...latest",
-      "iphone/6.0...latest",
-      "ipad/6.0...latest",
-      "android-browser/4.2...latest"
-    ],
-    "files": "test/*.js",
-    "html": "test/index.html"
+    "tape": "^4.0.0",
+    "wzrd": "^1.3.0"
   }
 }
