@@ -1,6 +1,6 @@
 {
   "name": "bondo",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "Declarative data binding for DOM Nodes using Object.observe()",
   "main": "index.js",
   "scripts": {
