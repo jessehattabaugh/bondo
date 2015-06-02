@@ -74,6 +74,18 @@ document.registerElement('my-login', {
 * Observe objects nested in models?: `{{user.name.first}}`
 * Maybe iterate over arrays and objects? `each={{collection}}`
 * Expressions? `hidden="{{!loggedIn}}"`
+* 
+
+## ChangeLog
+
+6/2/2015
+
+2.0 Trying something else. 
+
+So I started looking into how Knockout and Angular interpret their expressions and discovered that Knockout basically evals() them in the context of the ViewModel. That seems less than safe somehow. Also parsing handlebars is a whole ball of wax in and of itself. 
+
+
+
 
 ## License
 
