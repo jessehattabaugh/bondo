@@ -5,8 +5,6 @@ Declarative data binding for DOM Nodes using Object.observe().
 
 ## Usage
 
-[![NPM](https://nodei.co/npm/bondo.png)](https://www.npmjs.com/package/bondo)
-
 ```html
 <template id="myTemplate">
   <input value="{{username}}">
@@ -84,8 +82,7 @@ document.registerElement('my-login', {
 
 So I started looking into how Knockout and Angular interpret their expressions and discovered that Knockout basically evals() them in the context of the ViewModel. That seems less than safe somehow. Also parsing handlebars is a whole ball of wax in and of itself. 
 
-
-
+[![NPM](https://nodei.co/npm/bondo.png)](https://www.npmjs.com/package/bondo)
 
 ## License
 
