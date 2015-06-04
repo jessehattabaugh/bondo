@@ -18,16 +18,16 @@ function bondo(name, view, ...other) {
   
   let constructor = document.registerElement(name, {
     prototype: Object.create(HTMLElement.prototype, {
-      render: {
+      update: {
         value: function () {
           let newTree = view(this);
-          this.tree = patch(this.tree, diff(this.tree, newTree));
+          patch(this.rootNode, diff(this.tree, newTree));
           this.tree = newTree;
         }
       },
       createdCallback: {
         value: function () {
-          console.dir(this);
+          //console.dir(this);
           
           // empty the element
           let oldChildren = [];
@@ -38,11 +38,13 @@ function bondo(name, view, ...other) {
           
           // render the view for the first time and put it in the DOM
           this.tree = view(this);
-          this.appendChild(createElement(this.tree));
+          this.rootNode = createElement(this.tree);
+          this.appendChild(this.rootNode);
           
           this.observer = new MutationObserver(function(mutations) {
-            this.render();
-          });
+            //onsole.dir(arguments);
+            this.update();
+          }.bind(this));
 
           this.observer.observe(this, { attributes: true });
 

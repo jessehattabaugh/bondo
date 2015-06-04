@@ -33,6 +33,18 @@ test("View functions can use attributes of element to render", function (t) {
   t.equals(document.getElementById('id-three').innerText, 'val-three');
 });
 
+// 4
+test("Mutations on the element's attributes will trigger a render", function (t) {
+  t.plan(1);
+  bondo('el-four', function (model) {
+    return h('div#fourInner', model.attributes.foo.value);
+  });
+  document.getElementById('four').setAttribute('foo', 'baz');
+  setTimeout(function () {
+    t.equal(document.getElementById('fourInner').innerText, 'baz');
+  });
+});
+
 /*
 var test = require('tape');
 test('binds model properties to attributes', function (t) {
