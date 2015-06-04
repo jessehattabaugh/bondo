@@ -18,46 +18,36 @@ function bondo(name, view, ...other) {
   
   let constructor = document.registerElement(name, {
     prototype: Object.create(HTMLElement.prototype, {
+      render: {
+        value: function () {
+          let newTree = view(this);
+          this.tree = patch(this.tree, diff(this.tree, newTree));
+          this.tree = newTree;
+        }
+      },
       createdCallback: {
         value: function () {
           console.dir(this);
+          
+          // empty the element
           let oldChildren = [];
           while (this.firstChild) {
             oldChildren.push(this.firstChild);
             this.removeChild(this.firstChild);
           }
-          this.appendChild(createElement(view(this)));
-          /*
-          // 1: Create a function that declares what the DOM should look like
-          function render(count)  {
-              return h('div', {
-                  style: {
-                      textAlign: 'center',
-                      lineHeight: (100 + count) + 'px',
-                      border: '1px solid red',
-                      width: (100 + count) + 'px',
-                      height: (100 + count) + 'px'
-                  }
-              }, [String(count)]);
-          }
-
-          // 2: Initialise the document
-          var count = 0;      // We need some app data. Here we just store a count.
-
-          var tree = render(count);               // We need an initial tree
-          var rootNode = createElement(tree);     // Create an initial root DOM node ...
-          document.body.appendChild(rootNode);    // ... and it should be in the document
           
-          // 3: Wire up the update logic
-          setInterval(function () {
-                count++;
+          // render the view for the first time and put it in the DOM
+          this.tree = view(this);
+          this.appendChild(createElement(this.tree));
+          
+          this.observer = new MutationObserver(function(mutations) {
+            this.render();
+          });
 
-                var newTree = render(count);
-                var patches = diff(tree, newTree);
-                rootNode = patch(rootNode, patches);
-                tree = newTree;
-          }, 1000);
-          */
+          this.observer.observe(this, { attributes: true });
+
+          // later, you can stop observing
+          //observer.disconnect();
         }
       }
     })
