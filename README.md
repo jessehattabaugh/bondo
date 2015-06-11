@@ -29,19 +29,7 @@ Then use it as a standard [Custom Element](https://w3c.github.io/webcomponents/s
 <my-widget you="Jesse"></my-widget>
 ```
 
-## Todo
-
-* ~~You know, tests and all that due dilligence stuff~~
-* Support fields in textNodes: `<span>{{field}}</span>`
-* Interpolate values instead of replacing them entirely: `<input value="Mr. {{Username}}">`
-* Maybe use MutationObservers to two-way bind certain attributes instead of making you register eventhandler attributes
-* Handle boolean attributes: `checked="checked"`
-* Observe objects nested in models?: `{{user.name.first}}`
-* Maybe iterate over arrays and objects? `each={{collection}}`
-* Expressions? `hidden="{{!loggedIn}}"`
-* 
-
-## ChangeLog
+## Change Log
 
 6/11/2015
 
