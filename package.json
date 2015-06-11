@@ -1,6 +1,6 @@
 {
   "name": "bondo",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A nano framework for Web Components utilizing Virtual-DOM and MutationObservers",
   "main": "index.js",
   "scripts": {
