@@ -41,9 +41,9 @@ So, I started looking into how other declarative data-binding libraries allow fo
 
 Then I read about virtual-dom. Just like React, it lets you create a lightweight virtual DOM tree and then diff/path it against what's in the actual DOM. Since you build these trees using regular Javascript, it's no trouble at all to evaluate expressions!
 
-So I set about rebuilding Bondo using the VDOM. This time, instead of using a `<template>` you pass in a function that returns a hyperscript vtree. This function recieves the element where the VDOM will be eventually rendered as it's first argument. This is so that attributes of the custom element can be used tp pass params into the view. This way I don't have to have a separate ViewModel object. Instead of using `Object.observe()` I use a MutationObserver to observe the element. If any of it's attributes change, I call the view function again, and patch the innerDOM of the element.
+So I set about rebuilding Bondo using the VDOM. This time, instead of using a `<template>` you pass in a function that returns a hyperscript vtree. This function recieves the element where the VDOM will eventually be rendered as it's first argument. This is so that attributes of the custom element can be used tp pass params into the view. This way I don't have to have a separate ViewModel object. Instead of using `Object.observe()` I use a MutationObserver to observe the element. If any of it's attributes change, I call the view function again, and patch the innerDOM of the element.
 
-It works, there's tests! Is it useful for building applications? I don't know, you tell me!
+It's simple, It works, there're tests! Is it useful for building applications? I don't know, you tell me!
 
 [![NPM](https://nodei.co/npm/bondo.png)](https://www.npmjs.com/package/bondo)
 
