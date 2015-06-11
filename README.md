@@ -17,7 +17,7 @@ function view(el, actions) {
 
 bondo('my-widget', view, {
   userInput: function (ev) {
-    this.setAttribute('you') = ev.target.value;
+    this.setAttribute('you', ev.target.value);
   }
 });
 ```
