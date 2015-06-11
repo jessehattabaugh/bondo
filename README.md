@@ -48,8 +48,6 @@ It's simple, it works, [there're tests](https://github.com/jessehattabaugh/bondo
 - Think of a way to prerender on the server to eliminate FOUC
 - Try to pass in values that aren't just strings
 
-[![NPM](https://nodei.co/npm/bondo.png)](https://www.npmjs.com/package/bondo)
-
 ## Credits
 
 - [Matt Esch - virtual-dom](https://github.com/Matt-Esch/virtual-dom)
@@ -59,3 +57,5 @@ It's simple, it works, [there're tests](https://github.com/jessehattabaugh/bondo
 ## License
 
 Artistic License 2.0, see [LICENSE.md](http://github.com/jessehattabaugh/bondo/blob/master/LICENSE.md) for details.
+
+[![NPM](https://nodei.co/npm/bondo.png)](https://www.npmjs.com/package/bondo)
