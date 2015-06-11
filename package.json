@@ -1,7 +1,7 @@
 {
   "name": "bondo",
   "version": "2.0.0",
-  "description": "Declarative data binding for DOM Nodes using Object.observe()",
+  "description": "A nano framework for Custom Elements utilizing Virtual-DOM and MutationObservers",
   "main": "index.js",
   "scripts": {
     "test": "tape test.js",
@@ -13,8 +13,8 @@
   },
   "keywords": [
     "components",
-    "custom elements",
-    "dom",
+    "Custom Elements",
+    "DOM",
     "MutationObserver",
     "Observer",
     "virtual-dom",
