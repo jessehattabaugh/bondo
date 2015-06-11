@@ -1,6 +1,6 @@
 # Release Notes
 
-##2.0 - Trying something new. 
+##v2.0 - Trying something new. 
 
 The first version of Bondo was more of a data-binding tool in the style of Knockout or Angular. It took a plain object to use as a ViewModel, parsed a `<template>` for `{{handlebars}}` fields, and replaced them with values from the ViewModel. Then it used `Object.observe()` to watch for changes and update the appropriate parts of the DOM. It worked, but the template `{{fields}}` could only be identifiers for property names on the ViewModel. That means no `{{firstName + ' ' + lastName}}` or `{{!loggedIn}}`.
 
@@ -8,4 +8,6 @@ So, I started looking into how other declarative data-binding libraries allow fo
 
 Then I read about virtual-dom. Just like React, it lets you create a lightweight virtual DOM tree and then diff/patch it against what's in the actual DOM. Since you build these trees using regular Javascript, it's no trouble at all to evaluate expressions!
 
-So I set about rebuilding Bondo using the VDOM. This time, instead of using a `<template>` you pass in a function that returns a hyperscript vtree. This function recieves the element where the VDOM will eventually be rendered as it's first argument. This is so that attributes of the custom element can be used tp pass params into the view. This way I don't have to have a separate ViewModel object. Instead of using `Object.observe()` I use a MutationObserver to observe the element. If any of it's attributes change, I call the view function again, and patch the innerDOM of the element.
+So I set about rebuilding Bondo using the VDOM. This time, instead of using a `<template>` you pass in a function that returns a hyperscript vtree. This function recieves the element where the VDOM will eventually be rendered as it's first argument. This is so that attributes of the custom element can be used to pass params into the view. Instead of using `Object.observe()` to observe a separate ViewModel object I just use a MutationObserver to observe the custom element. If any of it's attributes change, I call the view function again, and patch the innerDOM of the element.
+
+I know manipulating attributes on a DOM element isn't the coolest thing since functional reactive sliced bread, but it might be the simplest way for third parties to use your web components. At least that's the theory. There's probably a lot of things you can't do with strings, but I'll worry about that later.

@@ -39,11 +39,19 @@ bondo('example-widget', function view(el, model, intents, actions, whatever) {
 
 ```
 
-It's simple, It works, [there're tests](https://github.com/jessehattabaugh/bondo/blob/master/test/test.js)! Is it useful for building applications? I don't know, [you tell me](https://github.com/jessehattabaugh/bondo/issues)!
+It's simple, it works, [there're tests](https://github.com/jessehattabaugh/bondo/blob/master/test/test.js)! Is it useful for building applications? I don't know, [you tell me](https://github.com/jessehattabaugh/bondo/issues)!
+
+## Todo
+
+- See if it's possible to nest these things
+- Create a TodoMVC app
+- Think of a way to prerender on the server to eliminate FOUC
+- Try to pass in values that aren't just strings
 
 [![NPM](https://nodei.co/npm/bondo.png)](https://www.npmjs.com/package/bondo)
 
 ## Credits
+
 - [Matt Esch - virtual-dom](https://github.com/Matt-Esch/virtual-dom)
 - [Andrea Giammarchi - document.registerElement polyfill](https://github.com/WebReflection/document-register-element)
 - [Graeme Yeates - MutationObserver polyfill](https://github.com/megawac/MutationObserver.js)
