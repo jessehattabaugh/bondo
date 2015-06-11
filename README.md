@@ -1,8 +1,6 @@
 # Bondo
 Bind an object to a VDOM.
 
-*Should* work in browsers that have [Object.observe](http://caniuse.com/#feat=object-observe). To support other browsers use a [polyfill](https://www.npmjs.com/package/object.observe)!
-
 ## Usage
 
 ```html
@@ -18,11 +16,6 @@ Bind an object to a VDOM.
 var bondo = require('bondo');
 var h = bondo.h;
 
-var state = {
-  username: null,
-  loggedIn: false
-};
-
 var actions = {
   changedUsername: function (e) {
     state.username = e.target.value;
@@ -32,15 +25,15 @@ var actions = {
   }
 };
 
-function render(state, actions) {
+function view(model, actions) {
   return h('main', [
-    h('h1', 'Hello ' + state.username || 'World'),
+    h('h1', 'Hello ' + model.attributes.username.value || 'World'),
     h('input', {onchange: actions.changedUsername}),
     h('button', {onclick: actions.login}, "Login")
   ]);
 }
 
-document.body.appendChild(bondo(element, render, state, actions));
+document.body.appendChild(bondo(element, view, actions));
 ```
 
 ### Components

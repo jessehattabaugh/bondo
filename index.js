@@ -4,6 +4,8 @@ let h = bondo.h = require('virtual-dom/h');
 let diff = require('virtual-dom/diff');
 let patch = require('virtual-dom/patch');
 let createElement = require('virtual-dom/create-element');
+let delegator = require("dom-delegator");
+let d = delegator();
 
 module.exports = bondo;
   
@@ -18,38 +20,37 @@ function bondo(name, view, ...other) {
   
   let constructor = document.registerElement(name, {
     prototype: Object.create(HTMLElement.prototype, {
-      update: {
+      _update: {
         value: function () {
           let newTree = view(this);
-          patch(this.rootNode, diff(this.tree, newTree));
-          this.tree = newTree;
+          patch(this._root, diff(this._tree, newTree));
+          this._tree = newTree;
         }
       },
       createdCallback: {
         value: function () {
-          //console.dir(this);
           
           // empty the element
-          let oldChildren = [];
+          //let oldChildren = [];
           while (this.firstChild) {
-            oldChildren.push(this.firstChild);
+            //oldChildren.push(this.firstChild);
             this.removeChild(this.firstChild);
           }
           
-          // render the view for the first time and put it in the DOM
-          this.tree = view(this);
-          this.rootNode = createElement(this.tree);
-          this.appendChild(this.rootNode);
+          // render the view for the first time and put it in the custom element
+          this._tree = view(this);
+          this._root = createElement(this._tree);
+          this.appendChild(this._root);
           
-          this.observer = new MutationObserver(function(mutations) {
-            //onsole.dir(arguments);
-            this.update();
+          // update the vtree whenever the attributes change
+          this._observer = new MutationObserver(function(mutations) {
+            //console.dir(arguments);
+            this._update();
           }.bind(this));
-
-          this.observer.observe(this, { attributes: true });
+          this._observer.observe(this, { attributes: true });
 
           // later, you can stop observing
-          //observer.disconnect();
+          //this._observer.disconnect();
         }
       }
     })
@@ -58,7 +59,7 @@ function bondo(name, view, ...other) {
   return constructor;
 }
 
-/*
+/* v1 implementation
 module.exports = function (element, model) {
   let walk = require('dom-walk');
   let id = (typeof element == 'string') ? element : element.localName;

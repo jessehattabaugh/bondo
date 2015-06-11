@@ -5,24 +5,21 @@
   "main": "index.js",
   "scripts": {
     "test": "tape test.js",
-    "prepublish": "browserify index.js --transform babelify --outfile www/bondo.js",
-    "start": "cd test; wzrd test.js -- --transform babelify"
+    "start": "cd test; wzrd test.js -- -t babelify -d"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/jessehattabaugh/bondo.git"
   },
   "keywords": [
-    "declarative",
-    "data",
-    "binding",
+    "components",
+    "custom elements",
     "dom",
-    "template",
-    "Object.observe()",
-    "observable",
-    "bond",
-    "bind",
-    "databinding"
+    "MutationObserver",
+    "Observer",
+    "virtual-dom",
+    "vdom",
+    "web components"
   ],
   "author": "Jesse Hattabaugh <arkanciscan@gmail.com>",
   "license": "Artistic License 2.0",
@@ -34,9 +31,7 @@
     "babelify": "^6.1.2",
     "browserify": "^10.2.3",
     "document-register-element": "^0.4.1",
-    "dom-walk": "^0.1.1",
     "mutationobserver-shim": "^0.3.1",
-    "object.observe": "^0.2.3",
     "tape": "^4.0.0",
     "virtual-dom": "^2.0.1",
     "wzrd": "^1.3.0"
