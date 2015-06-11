@@ -61,31 +61,8 @@ test("event delegation works", function (t) {
 // 6
 test("view function receives ...rest arguments", function (t) {
   t.plan(1);
-  
   bondo('el-six', function (el, a) {
     return h('#six', a.foo);
   }, {foo: 'bar'});
-  
   t.equal(document.getElementById('six').innerHTML, 'bar');
 });
-
-/* Old tests from v1
-********************************************************************************
-var test = require('tape');
-test('binds model properties to attributes', function (t) {
-  t.plan(1);
-  var el = bondo('testOne', {username: 'user1'});
-  t.equal(el.querySelector('input').value, 'user1');
-});
-
-test('when model properties change, attributes change', function (t) {
-  t.plan(2);
-  var model = {username: 'user2'};
-  var el = bondo('testTwo', model);
-  t.equal(el.querySelector('input').value, 'user2');
-  model.username = 'user3';
-  setTimeout(function () {
-    t.equal(el.querySelector('input').value, 'user3');
-  }, 0); 
-});
-*/
