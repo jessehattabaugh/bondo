@@ -1,5 +1,5 @@
 # Bondo
-A nano framework for Web Components. Mainly just a little glue between Custom Elements and Virtual-DOM using Mutation Observers to trigger DOM patches.
+A nano framework for Web Components. Mainly just a little glue between [Custom Elements](https://w3c.github.io/webcomponents/spec/custom/) and [Virtual-DOM](https://github.com/Matt-Esch/virtual-dom) using [Mutation Observers](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) to trigger DOM patches.
 
 ## Usage
 
@@ -23,7 +23,7 @@ let actions = {
 bondo.component('my-widget', view, actions);
 ```
 
-Then use it as a standard [Custom Element](https://w3c.github.io/webcomponents/spec/custom/). 
+Then use it as a standard Custom Element.
 
 ```html
 <my-widget you="Jesse"></my-widget>
