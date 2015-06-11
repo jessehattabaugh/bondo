@@ -63,6 +63,17 @@ test("event delegation works", function (t) {
   document.getElementById('fiveButton').dispatchEvent(new MouseEvent('click'));
 });
 
+// 6
+test("view function receives ...rest arguments", function (t) {
+  t.plan(1);
+  
+  bondo('el-six', function (el, a) {
+    return h('#six', a.foo);
+  }, {foo: 'bar'});
+  
+  t.equal(document.getElementById('six').innerHTML, 'bar');
+});
+
 /* Old tests from v1
 ********************************************************************************
 var test = require('tape');
