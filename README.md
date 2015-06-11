@@ -1,5 +1,6 @@
 # Bondo
-A nano framework for Web Components. Mainly just a little glue between [Custom Elements](https://w3c.github.io/webcomponents/spec/custom/) and [Virtual-DOM](https://github.com/Matt-Esch/virtual-dom) using [Mutation Observers](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) to trigger DOM patches.
+
+This is just a little glue between [Custom Elements](https://w3c.github.io/webcomponents/spec/custom/) and [Virtual-DOM](https://github.com/Matt-Esch/virtual-dom) using [Mutation Observers](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) to trigger DOM patches.
 
 ## Usage
 
@@ -55,6 +56,11 @@ So I set about rebuilding Bondo using the VDOM. This time, instead of using a `<
 It's simple, It works, [there're tests](https://github.com/jessehattabaugh/bondo/blob/master/test/test.js)! Is it useful for building applications? I don't know, [you tell me](https://github.com/jessehattabaugh/bondo/issues)!
 
 [![NPM](https://nodei.co/npm/bondo.png)](https://www.npmjs.com/package/bondo)
+
+## Credit
+- [Matt Esch - virtual-dom](https://github.com/Matt-Esch/virtual-dom)
+- [Andrea Giammarchi - document.registerElement polyfill](https://github.com/WebReflection/document-register-element)
+- [Graeme Yeates - MutationObserver polyfill](https://github.com/megawac/MutationObserver.js)
 
 ## License
 
