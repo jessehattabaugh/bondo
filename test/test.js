@@ -49,28 +49,18 @@ test("Mutations on the element's attributes will trigger a render", function (t)
 });
 
 // 5
-test("delegation works", function (t) {
+test("event delegation works", function (t) {
   t.plan(1);
-  
   function clickFive() {
     console.dir(arguments);
-    t.pass('handler triggered'); 
+    t.pass('handler triggered');
   }
-  
   function viewFive(el) {
     return h('button#fiveButton', {'ev-click': clickFive}, "five button");
   }
-  
   bondo('el-five', viewFive);
-  
-  
-  let fiveBtn = document.getElementById('fiveButton');
-  
-  //console.dir(fiveEl);
-  
-  fiveBtn.dispatchEvent(new MouseEvent('click'));
-  
-  //t.equal(fiveEl.onclick, clickFive);
+  // manually trigger the click event
+  document.getElementById('fiveButton').dispatchEvent(new MouseEvent('click'));
 });
 
 /* Old tests from v1
