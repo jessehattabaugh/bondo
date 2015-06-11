@@ -1,7 +1,7 @@
 {
   "name": "bondo",
   "version": "2.0.0",
-  "description": "A nano framework for Custom Elements utilizing Virtual-DOM and MutationObservers",
+  "description": "A nano framework for Web Components utilizing Virtual-DOM and MutationObservers",
   "main": "index.js",
   "scripts": {
     "test": "tape test.js",

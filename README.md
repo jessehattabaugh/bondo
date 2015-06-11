@@ -1,5 +1,5 @@
 # Bondo
-A nano framework for Custom Elements. Mainly just a little glue between [Custom Elements](https://w3c.github.io/webcomponents/spec/custom/) and [Virtual-DOM](https://github.com/Matt-Esch/virtual-dom) using [Mutation Observers](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) to trigger DOM patches.
+A nano framework for Web Components. Mainly just a little glue between [Custom Elements](https://w3c.github.io/webcomponents/spec/custom/) and [Virtual-DOM](https://github.com/Matt-Esch/virtual-dom) using [Mutation Observers](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) to trigger DOM patches.
 
 ## Usage
 
@@ -29,11 +29,11 @@ Then use it as a standard Custom Element.
 
 The first argument passed to the view function is the actual DOM element so it's attributes can be used when rendering the VDOM. The element's attributes will be observed and any changes will automatically trigger an update of the VDOM.
 
-The rest of the arguments to the view function are all the arguments passed to bondo() following the view function.
+Subsequent arguments to the view function are any arguments passed to bondo() following the view function. These are optional. 
 
 ```js
-bondo('example-widget', function (el, model, intents, actions, whatever) {
-  // inject anything you need to render your vdom
+bondo('example-widget', function view(el, model, intents, actions, whatever) {
+  // inject as many things as you need to render your vdom
 }, actions, intents, model, whatever)
 
 ```
