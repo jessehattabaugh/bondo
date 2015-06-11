@@ -1,11 +1,6 @@
 const bondo = require('../index.js');
 const h = bondo.h;
 
-// polyfills
-require('document-register-element');
-require('mutationobserver-shim');
-//require('object.observe');
-
 const test = require('tape');
 
 // 1

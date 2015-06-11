@@ -31,6 +31,7 @@
     "babelify": "^6.1.2",
     "browserify": "^10.2.3",
     "document-register-element": "^0.4.1",
+    "dom-delegator": "^13.1.0",
     "mutationobserver-shim": "^0.3.1",
     "tape": "^4.0.0",
     "virtual-dom": "^2.0.1",

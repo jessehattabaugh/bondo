@@ -1,12 +1,16 @@
 "use strict";
 
+// polyfills
+require('document-register-element');
+require('mutationobserver-shim');
+
 let h = bondo.h = require('virtual-dom/h');
 let diff = require('virtual-dom/diff');
 let patch = require('virtual-dom/patch');
 let createElement = require('virtual-dom/create-element');
-let delegator = require("dom-delegator");
 
 // start dom-delegator to look for ev-* attributes
+let delegator = require("dom-delegator");
 let d = delegator();
 
 module.exports = bondo;
