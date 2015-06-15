@@ -43,14 +43,16 @@ It's simple, it works, [there're tests](https://github.com/jessehattabaugh/bondo
 
 ## Todo
 
-- See if it's possible to nest these things
+- See if to nesting these things works
 - Create a TodoMVC app
 - Think of a way to prerender on the server to eliminate FOUC
 - Try to pass in values that aren't just strings
+- Maybe do something with the existing children instead of throwing them away
 
 ## Credits
 
 - [Matt Esch - virtual-dom](https://github.com/Matt-Esch/virtual-dom)
+- [Raynos (Jake Verbaten) - dom-delegator](https://github.com/Raynos/dom-delegator)
 - [Andrea Giammarchi - document.registerElement polyfill](https://github.com/WebReflection/document-register-element)
 - [Graeme Yeates - MutationObserver polyfill](https://github.com/megawac/MutationObserver.js)
 

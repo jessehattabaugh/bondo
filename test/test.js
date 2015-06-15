@@ -47,7 +47,6 @@ test("Mutations on the element's attributes will trigger a render", function (t)
 test("event delegation works", function (t) {
   t.plan(1);
   function clickFive() {
-    console.dir(arguments);
     t.pass('handler triggered');
   }
   function viewFive(el) {
