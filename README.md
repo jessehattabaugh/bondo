@@ -10,13 +10,14 @@ let h = bondo.h;
 
 function view(el, actions) {
   return h('main', [
-    h('h1', 'Hello ' + el.getAttribute('you') || 'World'),
-    h('input', {ev-change: actions.userInput})
+    h('h1#helloSeven', 'Hello ' + el.getAttribute('you') || 'World'),
+    h('input#inputSeven', {
+      'ev-keyup': actions.myEventHandler.bind(el)
+    })
   ]);
 }
-
 bondo('my-widget', view, {
-  userInput: function (ev) {
+  myEventHandler: function (ev) {
     this.setAttribute('you', ev.target.value);
   }
 });

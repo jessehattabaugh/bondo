@@ -36,6 +36,7 @@
   "devDependencies": {
     "babelify": "^6.1.2",
     "browserify": "^10.2.3",
+    "dom-events": "^0.1.1",
     "tape": "^4.0.0",
     "wzrd": "^1.3.0"
   }

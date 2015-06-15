@@ -2,6 +2,8 @@ const bondo = require('../index.js');
 const h = bondo.h;
 
 const test = require('tape');
+//const trigger = require('trigger-event');
+const event = require('dom-events');
 
 // 1
 test("Exports virtual hypserscript on h property", function (t) {
@@ -64,4 +66,29 @@ test("view function receives ...rest arguments", function (t) {
     return h('#six', a.foo);
   }, {foo: 'bar'});
   t.equal(document.getElementById('six').innerHTML, 'bar');
+});
+
+// 7
+test("example from README.md", function (t) {
+  t.plan(2);
+  function view(el, actions) {
+    return h('main', [
+      h('h1#helloSeven', 'Hello ' + el.getAttribute('you') || 'World'),
+      h('input#inputSeven', {'ev-keyup': actions.userInput.bind(el)})
+    ]);
+  }
+  bondo('my-widget', view, {
+    userInput: function (ev) {
+      this.setAttribute('you', ev.target.value);
+    }
+  });
+  let hello = document.getElementById('helloSeven');
+  t.equal(hello.textContent, 'Hello Jesse');
+  // change the value of the input and trigger a keyup
+  let input = document.getElementById('inputSeven');
+  input.value = 'a';
+  event.emit(input, 'keyup');
+  setTimeout(function () {
+    t.equal(hello.textContent, 'Hello a');
+  }, 1000);
 });
