@@ -44,10 +44,10 @@ It's simple, it works, [there're tests](https://github.com/jessehattabaugh/bondo
 
 ## Todo
 
-- See if to nesting these things works
+- Test if nesting works
 - Create a TodoMVC app
-- Think of a way to prerender on the server to eliminate FOUC
-- Try to pass in values that aren't just strings
+- Think of a way to prerender on the server
+- Try to pass in complex values
 - Maybe do something with the existing children instead of throwing them away
 
 ## Credits

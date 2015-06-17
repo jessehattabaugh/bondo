@@ -92,3 +92,13 @@ test("example from README.md", function (t) {
     t.equal(hello.textContent, 'Hello a');
   }, 1000);
 });
+
+// 8
+test("passing objects to attributes", function (t) {
+  t.plan(1);
+  let obj = {a:'a'};
+  bondo('el-eight', function (el, a) {
+    return h('#six', a.obj);
+  }, {foo: obj});
+  t.equal(document.getElementById('six').innerHTML, 'bar');
+});
