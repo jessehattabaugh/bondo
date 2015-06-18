@@ -104,3 +104,13 @@ test("passing objects to attributes", function (t) {
   t.equal(document.getElementById('eight').innerHTML, 'bar');
 });
 */
+
+// Todo List Example
+test("<todo-app> mounts", function (t) {
+  t.plan(1);
+  
+  bondo('todo-app');
+  
+  t.
+});
+
