@@ -2,6 +2,8 @@
 
 const bondo = require('bondo');
 
-const h = bondo.h;
-
-const app = bondo('todo-list', require('view/list'));
+const app = bondo(
+  'todo-list', 
+  require('./listView'),
+  require('./listUser')
+);
