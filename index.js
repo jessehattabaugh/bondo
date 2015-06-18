@@ -1,8 +1,9 @@
-"use strict";
+'use strict';
 
 // polyfills
 require('document-register-element');
 require('mutationobserver-shim');
+
 
 let h = bondo.h = require('virtual-dom/h');
 let diff = require('virtual-dom/diff');
