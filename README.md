@@ -8,18 +8,13 @@ This is just a little glue between [Custom Elements](https://w3c.github.io/webco
 let bondo = require('bondo');
 let h = bondo.h;
 
-function view(el, actions) {
+bondo('my-widget', function (el, actions) {
   return h('main', [
-    h('h1#helloSeven', 'Hello ' + el.getAttribute('you') || 'World'),
-    h('input#inputSeven', {
-      'ev-keyup': actions.myEventHandler.bind(el)
+    h('h1', 'Hello ' + el.getAttribute('you') || 'World'),
+    h('input', {
+      onkeyup: ev => el.setAttribute('you', ev.target.value)
     })
   ]);
-}
-bondo('my-widget', view, {
-  myEventHandler: function (ev) {
-    this.setAttribute('you', ev.target.value);
-  }
 });
 ```
 
@@ -28,6 +23,8 @@ Then use it as a standard Custom Element.
 ```html
 <my-widget you="Jesse"></my-widget>
 ```
+
+Whenever the element's attributes change the view function gets called again and the existing innerDom gets patched with changes.
 
 The first argument passed to the view function is the actual DOM element so it's attributes can be used when rendering the VDOM. The element's attributes will be observed and any changes will automatically trigger an update of the VDOM.
 
