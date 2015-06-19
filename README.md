@@ -25,7 +25,7 @@ bondo('my-widget', view, {
 
 Then use it as a standard Custom Element.
 
-```html5
+```html
 <my-widget you="Jesse"></my-widget>
 ```
 
