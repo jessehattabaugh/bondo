@@ -4,7 +4,7 @@ This is just a little glue between [Custom Elements](https://w3c.github.io/webco
 
 ## Usage
 
-```js
+```es6
 let bondo = require('bondo');
 let h = bondo.h;
 
@@ -25,7 +25,7 @@ bondo('my-widget', view, {
 
 Then use it as a standard Custom Element.
 
-```html
+```html5
 <my-widget you="Jesse"></my-widget>
 ```
 
