@@ -1,5 +1,7 @@
 # Bondo
 
+[![Join the chat at https://gitter.im/jessehattabaugh/bondo](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/jessehattabaugh/bondo?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 This is just a little glue between [Custom Elements](https://w3c.github.io/webcomponents/spec/custom/) and [Virtual-DOM](https://github.com/Matt-Esch/virtual-dom) using [Mutation Observers](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) to trigger DOM patches.
 
 ## Usage
