@@ -40,9 +40,7 @@ function bondo(name, view, ...others) {
           this.appendChild(this._root);
           
           // update the vtree whenever the attributes change
-          this._observer = new MutationObserver(function(mutations) {
-            this._update();
-          }.bind(this));
+          this._observer = new MutationObserver(() => this._update());
           this._observer.observe(this, { attributes: true });
         }
       },
