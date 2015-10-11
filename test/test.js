@@ -1,4 +1,4 @@
-const bondo = require('../index.js');
+const bondo = require('../bondo.js');
 const h = bondo.h;
 
 const test = require('tape');

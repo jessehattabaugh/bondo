@@ -1,6 +1,6 @@
 # Bondo
 
-This is just a little glue between [Custom Elements](https://w3c.github.io/webcomponents/spec/custom/) and [Virtual-DOM](https://github.com/Matt-Esch/virtual-dom) using [Mutation Observers](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) to trigger DOM patches.
+This is just a little glue between [Custom Elements](https://w3c.github.io/webcomponents/spec/custom/) and [Virtual-DOM](https://github.com/Matt-Esch/virtual-dom).
 
 ## Usage
 
@@ -26,7 +26,7 @@ Then use it as a standard Custom Element.
 
 Whenever the element's attributes change the view function gets called again and the existing innerDom gets patched with changes.
 
-The first argument passed to the view function is the actual DOM element so it's attributes can be used when rendering the VDOM. The element's attributes will be observed and any changes will automatically trigger an update of the VDOM.
+The first argument passed to the view function is the actual DOM element so it's attributes can be used when rendering the VDOM. Whenever the element's attributes change the VDOM will be rendered again and the contents of the element will be patched.
 
 Subsequent arguments to the view function are any arguments passed to bondo() following the view function. These are optional. 
 
