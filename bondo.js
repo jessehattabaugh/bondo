@@ -1,8 +1,8 @@
 'use strict';
+console.log("hello 2 world");
 
 // polyfills
 require('document-register-element');
-require('mutationobserver-shim');
 
 let h = bondo.h = require('virtual-dom/h');
 let diff = require('virtual-dom/diff');
@@ -39,9 +39,11 @@ function bondo(name, view, ...others) {
           this._root = createElement(this._tree);
           this.appendChild(this._root);
           
-          // update the vtree whenever the attributes change
-          this._observer = new MutationObserver(() => this._update());
-          this._observer.observe(this, { attributes: true });
+        }
+      },
+      attributeChangedCallback: {
+        value: function () {
+          this._update();
         }
       },
       detachedCallback: {
