@@ -41,18 +41,19 @@ It's simple, it works, [there're tests](https://github.com/jessehattabaugh/bondo
 
 ## Todo
 
-- Test if nesting works
-- Create a TodoMVC app
-- Think of a way to prerender on the server
-- Try to pass in complex values
-- Maybe do something with the existing children instead of throwing them away
+- [] Provide hooks into the CustomElement lifecycle events
+- [] Test if nesting works
+- [] Create a TodoMVC app
+- [] Think of a way to prerender on the server
+- [] Try to pass in complex values
+- [] Maybe do something with the existing children instead of throwing them away
+- [] Get a better name, Ponents, Poni, Ponies, maybe see if substack will give me "Pony"
 
 ## Credits
 
 - [Matt Esch - virtual-dom](https://github.com/Matt-Esch/virtual-dom)
 - [Raynos (Jake Verbaten) - dom-delegator](https://github.com/Raynos/dom-delegator)
 - [Andrea Giammarchi - document.registerElement polyfill](https://github.com/WebReflection/document-register-element)
-- [Graeme Yeates - MutationObserver polyfill](https://github.com/megawac/MutationObserver.js)
 
 ## License
 
