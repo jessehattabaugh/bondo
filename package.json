@@ -6,7 +6,7 @@
   "scripts": {
     "test": "tape test.js",
     "start": "cd test; wzrd test.js -- -t babelify -d",
-    "prepublish": "babel bondo.es6 -o index.js"
+    "prepublish": "babel bondo.js -o index.js"
   },
   "repository": {
     "type": "git",

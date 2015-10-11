@@ -1,5 +1,5 @@
 'use strict';
-
+console.log("hello 2 world");
 // polyfills
 require('document-register-element');
 require('mutationobserver-shim');
