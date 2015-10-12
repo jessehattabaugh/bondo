@@ -1,0 +1,36 @@
+{
+  "name": "ponies",
+  "version": "0.0.0",
+  "description": "a nano framework for web components",
+  "main": "ponies.js",
+  "scripts": {
+    "start": "cd test; wzrd test.js -- -t babelify -dv",
+    "start-es6": "cd test; wzrd test.js -- -dv"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jessehattabaugh/ponies.git"
+  },
+  "keywords": [
+    "web-components",
+    "components",
+    "vdom",
+    "virtual-dom",
+    "custom-elements"
+  ],
+  "author": "Jesse Hattabaugh <arkanciscan@gmail.com>",
+  "license": "Artistic-2.0",
+  "bugs": {
+    "url": "https://github.com/jessehattabaugh/ponies/issues"
+  },
+  "homepage": "https://github.com/jessehattabaugh/ponies#readme",
+  "dependencies": {
+    "babelify": "^6.3.0",
+    "browserify": "^11.2.0",
+    "document-register-element": "^0.5.0",
+    "tape": "^4.2.1",
+    "vdom-parser": "^1.2.1",
+    "virtual-dom": "^2.1.1",
+    "wzrd": "^1.3.1"
+  }
+}
