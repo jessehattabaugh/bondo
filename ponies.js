@@ -1,18 +1,34 @@
 'use strict';
 
-const h = exports.h = require('virtual-dom/h');
+const h = Pony.h = require('virtual-dom/h');
 const diff = require('virtual-dom/diff');
 const patch = require('virtual-dom/patch');
-const createElement = require('virtual-dom/create-element');
 const virtualize = require('vdom-parser');
 
-exports.register = function (render, mixin) {
+module.exports = Pony;
   
-  // todo: throw error if name doesn't contain a dash
+function Pony(mixin) {
+  
+  if (typeof mixin !== 'object') {
+    throw new Error("First argument must be an object");
+  }
+      
+  if (!mixin.render || typeof mixin.render !== 'function') {
+    throw new Error("Ponies must have a render function");
+  }
+  
+  if (!mixin.name || !mixin.name.match(/\w-\w/)) {
+    throw new Error("name must contain a dash");
+  }
   
   class CustomElement extends HTMLElement {
     _update() {
-      let vdom = render();
+      let vdom = this.render();
+      
+      if (!Object.getPrototypeOf(h()).isPrototypeOf(vdom)) {
+        //throw new Error("Render function must return a vdom tree");
+      }
+      
       patch(this, diff(this._vdom, vdom));
       this._vdom = vdom;
       console.info(name + " updated");
@@ -38,11 +54,7 @@ exports.register = function (render, mixin) {
     }
   };
   
-  if (mixin) {
-    Object.assign(CustomElement.prototype, mixin)
-  }
+  Object.assign(CustomElement.prototype, mixin);
   
-  let vdom = render();
-  document.registerElement(vdom.tagName, CustomElement);
+  document.registerElement(mixin.name, CustomElement);
 }
-
