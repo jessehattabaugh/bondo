@@ -1,60 +1,71 @@
 'use strict';
 
-const h = Pony.h = require('virtual-dom/h');
+const h = register.h = require('virtual-dom/h');
 const diff = require('virtual-dom/diff');
 const patch = require('virtual-dom/patch');
 const virtualize = require('vdom-parser');
 
-module.exports = Pony;
+module.exports = register;
   
-function Pony(mixin) {
+function register(def) {
+  /* def = { 
+    render() { return vtree },
+    is (string): the tagName of an HTML element to inherit from, defaults to 'div'
+    created() { called after the element is created }
+    attached() { called after the element is attached to the dom }
+    changed(attrName, oldVal, newVal) { called after the element's attributes have changed }
+    detached() { called after the element is detached }
+  } */
   
-  if (typeof mixin !== 'object') {
-    throw new Error("First argument must be an object");
+  if (typeof def !== 'object') {
+    throw new Error("Definition must be an object");
+  }  
+  if (!def.render || typeof def.render !== 'function') {
+    throw new Error("Definition object must have a render method");
   }
-      
-  if (!mixin.render || typeof mixin.render !== 'function') {
-    throw new Error("Ponies must have a render function");
+  
+  // Create a blank element to extend
+  let el = document.createElement(def.is ? def.is : 'div');
+  
+  // Get the tagName of the vnode returned from render() 
+  // since we are doing this before an element is instantiated we bind to a blank element
+  let vdom = def.render.call(el);
+  if (!Object.getPrototypeOf(h()).isPrototypeOf(vdom)) {
+    throw new Error("Render function must return a vdom node");
+  }
+  let tagName = vdom.tagName;
+  console.log(tagName);
+  if (tagName.indexOf('-') === -1) {
+    throw new Error("The tagName of the root vnode returned by render() must contain a dash");
   }
   
-  if (!mixin.name || !mixin.name.match(/\w-\w/)) {
-    throw new Error("name must contain a dash");
-  }
-  
-  class CustomElement extends HTMLElement {
+  class CustomElement extends Object.getPrototypeOf(el).constructor {
     _update() {
-      let vdom = this.render();
-      
-      if (!Object.getPrototypeOf(h()).isPrototypeOf(vdom)) {
-        //throw new Error("Render function must return a vdom tree");
-      }
-      
-      patch(this, diff(this._vdom, vdom));
-      this._vdom = vdom;
-      console.info(name + " updated");
+      let newVdom = def.render.call(this);
+      patch(this, diff(this._vdom, newVdom));
+      this._vdom = newVdom;
+      console.info(tagName + " updated");
     }
     createdCallback() {
       this._vdom = virtualize(this);
       this._update();
-      console.info(name + " created");
-      if (this.created) this.created();
+      if (def.created) def.created.call(this);
+      console.info(tagName + " created");
     }
     attachedCallback() {
-      console.info(name + " attached");
-      if (this.attached) this.attached();
+      if (def.attached) def.attached.call(this);
+      console.info(tagName + " attached");
     }
     attributeChangedCallback(attrName, oldVal, newVal) {
       this._update();
-      console.info(name + " changed");
-      if (this.changed) this.changed();
+      if (def.changed) def.changed.call(this, attrName, oldVal, newVal);
+      console.info(tagName + " changed");
     }
     detachedCallback() {
-      console.info(name + " detached");
-      if (this.detached) this.detached();
+      if (def.detached) def.detached.call(this);
+      console.info(tagName + " detached");
     }
   };
   
-  Object.assign(CustomElement.prototype, mixin);
-  
-  document.registerElement(mixin.name, CustomElement);
+  document.registerElement(tagName, CustomElement);
 }

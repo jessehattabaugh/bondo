@@ -1,8 +1,8 @@
 'use strict';
 
 const test = require('tape');
-const ponies = require('../ponies.js');
-const h = ponies.h;
+const p = require('../ponies.js');
+const h = p.h;
 
 // polyfills
 require('document-register-element');
@@ -10,33 +10,33 @@ require('document-register-element');
 // one
 test("Exports the right stuff", function (t) {
   t.plan(2);
-  t.equal(typeof ponies, 'function');
-  t.equal(ponies.h('div').tagName, 'DIV');
+  t.equal(typeof p, 'function');
+  t.equal(p.h('div').tagName, 'DIV');
 });
 
 // two 
 test("Throws exceptions on invalid arguments", function (t) {
   t.plan(7);
   t.throws(function () {
-    ponies();
+    p();
   }, "no argument");
   t.throws(function () {
-    ponies({name: 'pony-two-a'});
+    p({});
   }, "no render property");
   t.throws(function () {
-    ponies({name: 'pony-two-b', render: 'string'});
+    p({render: 'string'});
   }, "render property not a function");
   t.throws(function () {
-    ponies({name: 'pony-two-c', render() {return 'string';}});
+    p({render() {return 'string';}});
   }, "render function doesn't return a vtree");
   t.throws(function () {
-    ponies({render() {return h();}});
+    p({render() {return h();}});
   }, "must have a name");
   t.throws(function () {
-    ponies({name: 'aaaaaaaaaa', render() {return h('aaaaaaaaaa');}});
-  }, "name must contain a dash");
+    p({render() {return h('aaaaaaaaaa');}});
+  }, "tagName must contain a dash");
   t.doesNotThrow(function () {
-    ponies({name: 'pony-two-d', render() {return h('pony-two-d');}});
+    p({render() {return h('pony-two-d');}});
   }, "acceptable arguments don't throw an error");
 });
 
@@ -44,8 +44,7 @@ test("Throws exceptions on invalid arguments", function (t) {
 test("Replaces a Custom Element's DOM with a VDOM", function (t) {
   t.plan(3);
   t.equal(document.getElementById('old-three').tagName, 'DIV');
-  ponies({
-    name: 'pony-three',
+  p({
     render() {
       return h('pony-three', [
         h('#new-three')
@@ -59,8 +58,7 @@ test("Replaces a Custom Element's DOM with a VDOM", function (t) {
 // four
 test("Created callback is executed", function (t) {
   t.plan(1);
-  ponies({
-    name: 'pony-four',
+  p({
     render() {
       return h('pony-four');
     },
@@ -74,12 +72,11 @@ test("Created callback is executed", function (t) {
 // five
 test("Render function can use attributes of element to render", function (t) {
   t.plan(1);
-  ponies({
-    name: 'pony-five',
+  p({
     render() {
-      console.debug(this);
+      let valFive = this.attributes['att-five'] ? this.attributes['att-five'].value: 'no val';
       return h('pony-five', [
-        h('div#id-five', this.attributes['att-five'].value)
+        h('div#id-five', valFive)
       ]);
     }
   });
