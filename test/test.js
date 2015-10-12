@@ -1,6 +1,7 @@
 'use strict';
 
 const test = require('tape');
+const p = require('../ponies');
 const h = p.h;
 
 // polyfills
@@ -73,9 +74,9 @@ test("Render function can use attributes of element to render", function (t) {
   t.plan(1);
   p({
     render() {
-      let valFive = this.attributes['att-five'] ? this.attributes['att-five'].value: 'no val';
+      let textFive = this.attributes['att-five'] ? this.attributes['att-five'].value: 'val-null';
       return h('el-five', [
-        h('div#id-five', valFive)
+        h('#id-five', textFive)
       ]);
     }
   });
@@ -85,14 +86,18 @@ test("Render function can use attributes of element to render", function (t) {
 // six
 test("Mutations of the element's attributes will trigger a render", function (t) {
   t.plan(1);
-  p({render() {
-    return h('el-six', [
-      h('#id-six-child', this.attributes['att-six']value)
-    ]);
+  p({
+    render() {
+      
+      let textSix = this.attributes['att-six'] ? this.attributes['att-six'].value : 'val-null';
+      return h('el-six#id-six', [
+        h('#id-six-child', textSix)
+      ]);
+    }
   });
-  document.getElementById('id-six').setAttribute('att-six', 'att-val');
+  document.getElementById('id-six').setAttribute('att-six', 'val-six');
   // todo: if dom update takes too long this timeout interval might not work
   setTimeout(function () {
-    t.equal(document.getElementById('id-six-child').innerText, 'att-val');
+    t.equal(document.getElementById('id-six-child').innerText, 'val-six');
   }, 1000);
 });

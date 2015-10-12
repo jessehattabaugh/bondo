@@ -34,14 +34,13 @@ function register(def) {
     throw new Error("Render function must return a vdom node");
   }
   let tagName = vdom.tagName;
-  console.log(tagName);
   if (tagName.indexOf('-') === -1) {
     throw new Error("The tagName of the root vnode returned by render() must contain a dash");
   }
   
   class CustomElement extends Object.getPrototypeOf(el).constructor {
     _update() {
-      let newVdom = def.render();
+      let newVdom = this.render();
       patch(this, diff(this._vdom, newVdom));
       this._vdom = newVdom;
       console.info(tagName + " updated");
@@ -52,20 +51,20 @@ function register(def) {
     createdCallback() {
       this._vdom = virtualize(this);
       this._update();
-      if (def.created) def.created();
+      if (this.created) this.created();
       console.info(tagName + " created");
     }
     attachedCallback() {
-      if (def.attached) def.attached();
+      if (this.attached) this.attached();
       console.info(tagName + " attached");
     }
     attributeChangedCallback(attrName, oldVal, newVal) {
       this._update();
-      if (def.changed) def.changed(attrName, oldVal, newVal);
+      if (this.changed) this.changed(attrName, oldVal, newVal);
       console.info(tagName + " changed");
     }
     detachedCallback() {
-      if (def.detached) def.detached();
+      if (this.detached) this.detached();
       console.info(tagName + " detached");
     }
   };
