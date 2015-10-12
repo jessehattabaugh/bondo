@@ -1,7 +1,6 @@
 'use strict';
 
 const test = require('tape');
-const p = require('../ponies.js');
 const h = p.h;
 
 // polyfills
@@ -36,23 +35,23 @@ test("Throws exceptions on invalid arguments", function (t) {
     p({render() {return h('aaaaaaaaaa');}});
   }, "tagName must contain a dash");
   t.doesNotThrow(function () {
-    p({render() {return h('pony-two-d');}});
+    p({render() {return h('el-two-d');}});
   }, "acceptable arguments don't throw an error");
 });
 
 // three
 test("Replaces a Custom Element's DOM with a VDOM", function (t) {
   t.plan(3);
-  t.equal(document.getElementById('old-three').tagName, 'DIV');
+  t.equal(document.getElementById('id-three-old').tagName, 'DIV');
   p({
     render() {
-      return h('pony-three', [
-        h('#new-three')
+      return h('el-three', [
+        h('#id-three-new')
       ]);
     }
   });
-  t.equal(document.getElementById('old-three'), null);
-  t.equal(document.getElementById('new-three').tagName, 'DIV');
+  t.equal(document.getElementById('id-three-old'), null);
+  t.equal(document.getElementById('id-three-new').tagName, 'DIV');
 });
 
 // four
@@ -60,7 +59,7 @@ test("Created callback is executed", function (t) {
   t.plan(1);
   p({
     render() {
-      return h('pony-four');
+      return h('el-four');
     },
     created() {
       t.pass("callback called");
@@ -75,10 +74,25 @@ test("Render function can use attributes of element to render", function (t) {
   p({
     render() {
       let valFive = this.attributes['att-five'] ? this.attributes['att-five'].value: 'no val';
-      return h('pony-five', [
+      return h('el-five', [
         h('div#id-five', valFive)
       ]);
     }
   });
   t.equal(document.getElementById('id-five').innerText, 'val-five');
+});
+
+// six
+test("Mutations of the element's attributes will trigger a render", function (t) {
+  t.plan(1);
+  p({render() {
+    return h('el-six', [
+      h('#id-six-child', this.attributes['att-six']value)
+    ]);
+  });
+  document.getElementById('id-six').setAttribute('att-six', 'att-val');
+  // todo: if dom update takes too long this timeout interval might not work
+  setTimeout(function () {
+    t.equal(document.getElementById('id-six-child').innerText, 'att-val');
+  }, 1000);
 });

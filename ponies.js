@@ -10,11 +10,11 @@ module.exports = register;
 function register(def) {
   /* def = { 
     render() { return vtree },
-    is (string): the tagName of an HTML element to inherit from, defaults to 'div'
-    created() { called after the element is created }
-    attached() { called after the element is attached to the dom }
-    changed(attrName, oldVal, newVal) { called after the element's attributes have changed }
-    detached() { called after the element is detached }
+    is (string): the tagName of an HTML element to inherit from, defaults to 'div',
+    created() { called after the element is created },
+    attached() { called after the element is attached to the dom },
+    changed(attrName, oldVal, newVal) { called after the element's attributes have changed },
+    detached() { called after the element is detached },
   } */
   
   if (typeof def !== 'object') {
@@ -41,31 +41,37 @@ function register(def) {
   
   class CustomElement extends Object.getPrototypeOf(el).constructor {
     _update() {
-      let newVdom = def.render.call(this);
+      let newVdom = def.render();
       patch(this, diff(this._vdom, newVdom));
       this._vdom = newVdom;
       console.info(tagName + " updated");
     }
+    
+    // CustomElement lifecycle callbacks
+    // http://www.html5rocks.com/en/tutorials/webcomponents/customelements/#lifecycle
     createdCallback() {
       this._vdom = virtualize(this);
       this._update();
-      if (def.created) def.created.call(this);
+      if (def.created) def.created();
       console.info(tagName + " created");
     }
     attachedCallback() {
-      if (def.attached) def.attached.call(this);
+      if (def.attached) def.attached();
       console.info(tagName + " attached");
     }
     attributeChangedCallback(attrName, oldVal, newVal) {
       this._update();
-      if (def.changed) def.changed.call(this, attrName, oldVal, newVal);
+      if (def.changed) def.changed(attrName, oldVal, newVal);
       console.info(tagName + " changed");
     }
     detachedCallback() {
-      if (def.detached) def.detached.call(this);
+      if (def.detached) def.detached();
       console.info(tagName + " detached");
     }
   };
+  
+  // mixin the definition object
+  Object.assign(CustomElement.prototype, def);
   
   document.registerElement(tagName, CustomElement);
 }
