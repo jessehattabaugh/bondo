@@ -1,43 +1,40 @@
 {
   "name": "bondo",
   "version": "2.0.3",
-  "description": "A nano framework for Web Components utilizing Virtual-DOM and MutationObservers",
+  "description": "a nano framework for web components",
   "main": "bondo.js",
   "scripts": {
-    "test": "tape test.js",
-    "start": "cd test; wzrd test.js -- -t babelify -d",
-    "prepublish": "babel bondo.js -o dist.js"
+    "start": "cd test; wzrd test.js -- -t babelify -dv"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jessehattabaugh/bondo.git"
+    "url": "git+https://github.com/jessehattabaugh/bondo.git"
   },
   "keywords": [
+    "web-components",
     "components",
-    "Custom Elements",
-    "DOM",
-    "Observer",
-    "virtual-dom",
     "vdom",
+    "virtual-dom",
+    "custom-elements",
+    "CustomElements",
     "web components"
   ],
   "author": "Jesse Hattabaugh <arkanciscan@gmail.com>",
-  "license": "Artistic License 2.0",
+  "license": "Artistic-2.0",
   "bugs": {
     "url": "https://github.com/jessehattabaugh/bondo/issues"
   },
-  "homepage": "https://github.com/jessehattabaugh/bondo",
+  "homepage": "https://github.com/jessehattabaugh/bondo#readme",
   "dependencies": {
-    "document-register-element": "^0.4.1",
+    "document-register-element": "^0.5.0",
     "dom-delegator": "^13.1.0",
-    "virtual-dom": "^2.0.1"
+    "vdom-parser": "^1.2.1",
+    "virtual-dom": "^2.1.1"
   },
   "devDependencies": {
-    "babel": "^5.5.8",
-    "babelify": "^6.1.2",
-    "browserify": "^10.2.3",
-    "dom-events": "^0.1.1",
-    "tape": "^4.0.0",
-    "wzrd": "^1.3.0"
+    "babelify": "^6.3.0",
+    "browserify": "^11.2.0",
+    "tape": "^4.2.1",
+    "wzrd": "^1.3.1"
   }
 }

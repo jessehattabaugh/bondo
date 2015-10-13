@@ -5,49 +5,40 @@ This is just a little glue between [Custom Elements](https://w3c.github.io/webco
 ## Usage
 
 ```es6
-let bondo = require('bondo');
-let h = bondo.h;
+const bondo = require('bondo');
+const h = bondo.h;
 
-bondo('my-widget', function (el, actions) {
-  return h('main', [
-    h('h1', 'Hello ' + el.getAttribute('you') || 'World'),
-    h('input', {
-      onkeyup: ev => el.setAttribute('you', ev.target.value)
-    })
-  ]);
+register({
+  render() {
+    h('hello-component', [
+      h('h1', 'Hello ' + this.getAttribute('you') || 'World'),
+      h('input', {
+        onkeyup: ev => this.setAttribute('you', ev.target.value)
+      })
+    ])
+  }
 });
 ```
 
-Then use it as a standard Custom Element.
+Then use it like you would any other HTML element.
 
 ```html
-<my-widget you="Jesse"></my-widget>
+<hello-component you="Jesse"></hello-component>
 ```
 
-Whenever the element's attributes change the view function gets called again and the existing innerDom gets patched with changes.
-
-The first argument passed to the view function is the actual DOM element so it's attributes can be used when rendering the VDOM. Whenever the element's attributes change the VDOM will be rendered again and the contents of the element will be patched.
-
-Subsequent arguments to the view function are any arguments passed to bondo() following the view function. These are optional. 
-
-```js
-bondo('example-widget', function view(el, model, intents, actions, whatever) {
-  // inject as many things as you need to render your vdom
-}, actions, intents, model, whatever)
-
-```
+Whenever the element's attributes change the render function gets called again and the element's DOM gets patched with changes.
 
 It's simple, it works, [there're tests](https://github.com/jessehattabaugh/bondo/blob/master/test/test.js)! Is it useful for building applications? I don't know, [you tell me](https://github.com/jessehattabaugh/bondo/issues)!
 
 ## Todo
 
-- [] Provide hooks into the CustomElement lifecycle events
+- [x] Provide hooks into the CustomElement lifecycle events
 - [] Test if nesting works
 - [] Create a TodoMVC app
 - [] Think of a way to prerender on the server
 - [] Try to pass in complex values
-- [] Maybe do something with the existing children instead of throwing them away
-- [] Get a better name, Ponents, Poni, Ponies, maybe see if substack will give me "Pony"
+- [x] Maybe do something with the existing children instead of throwing them away
+- [] Get a better name, vdom-elements, Ponents, Ponies, maybe see if substack will give me "Pony"
 
 ## Credits
 
