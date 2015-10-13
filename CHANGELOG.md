@@ -1,6 +1,6 @@
 # Release Notes
 
-##v2.1 - Definition Object 
+##v3 - Definition Object 
 
 I've been using React at work and I'm getting more accustomed to the whole single object argument pattern. Also, I've realized how important it is to be able to hook into the lifecycle events for initializing third-party libraries and stuff. 
 
