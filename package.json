@@ -1,6 +1,6 @@
 {
   "name": "bondo",
-  "version": "2.0.3",
+  "version": "3.0.0",
   "description": "a nano framework for web components",
   "main": "bondo.js",
   "scripts": {
