@@ -1,12 +1,13 @@
 {
   "name": "bondo",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A nano framework for Web Components utilizing Virtual-DOM and MutationObservers",
   "main": "index.js",
   "scripts": {
     "test": "tape test.js",
     "start": "cd test; wzrd test.js -- -t babelify -d",
-    "todo": "cd todo; wzrd todo.js -- -t babelify -d"
+    "todo": "cd todo; wzrd index.es6 -- -t babelify -d",
+    "prepublish": "babel bondo.es6 -o index.js"
   },
   "repository": {
     "type": "git",
@@ -31,11 +32,11 @@
   "dependencies": {
     "document-register-element": "^0.4.1",
     "dom-delegator": "^13.1.0",
-    "events": "^1.0.2",
     "mutationobserver-shim": "^0.3.1",
     "virtual-dom": "^2.0.1"
   },
   "devDependencies": {
+    "babel": "^5.5.8",
     "babelify": "^6.1.2",
     "browserify": "^10.2.3",
     "dom-events": "^0.1.1",
