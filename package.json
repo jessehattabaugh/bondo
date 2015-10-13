@@ -1,7 +1,7 @@
 {
   "name": "bondo",
   "version": "3.0.0",
-  "description": "a nano framework for web components",
+  "description": "Create Web Components that render with Virtual-DOM",
   "main": "bondo.js",
   "scripts": {
     "start": "cd test; wzrd test.js -- -t babelify -dv"
@@ -12,12 +12,17 @@
   },
   "keywords": [
     "web-components",
-    "components",
-    "vdom",
     "virtual-dom",
     "custom-elements",
+    "web components",
+    "custom elements",
+    "webcomponents",
+    "customelements",
+    "WebComponents",
     "CustomElements",
-    "web components"
+    "components",
+    "Components",
+    "vdom"
   ],
   "author": "Jesse Hattabaugh <arkanciscan@gmail.com>",
   "license": "Artistic-2.0",
