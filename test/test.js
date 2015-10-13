@@ -1,64 +1,110 @@
-const bondo = require('../bondo.js');
-const h = bondo.h;
+'use strict';
 
 const test = require('tape');
-//const trigger = require('trigger-event');
-const event = require('dom-events');
+const p = require('../ponies').register;
+const h = require('../ponies').h;
 
-// 1
-test("Exports virtual hypserscript on h property", function (t) {
-  
-  t.plan(1);
-  t.equal(bondo.h('div').tagName, 'DIV');
-  // todo: maybe use instance of instead?
-});
+// polyfills
+require('document-register-element');
 
-// 2
-test("Replaces a Custom Element's DOM with a VDOM", function (t) {
+// one
+test("Exports the right stuff", function (t) {
+  let testP = require('../ponies').register;
+  let testH = require('../ponies').h;
   t.plan(2);
-  bondo('el-two', function () {
-    return h('div#new-two', "New Two");
-  });
-  t.equal(document.getElementById('old-two'), null);
-  t.equal(document.getElementById('new-two').tagName, 'DIV');
+  t.equal(typeof testR, 'function');
+  t.equal(testH('div').tagName, 'DIV');
 });
 
-// 3
-test("View functions can use attributes of element to render", function (t) {
-  t.plan(1);
-  bondo('el-three', function (el) {
-    return h('div#id-three', el.attributes['att-three'].value);
-  });
-  t.equal(document.getElementById('id-three').innerText, 'val-three');
+// two 
+test("Throws exceptions on invalid arguments", function (t) {
+  t.plan(7);
+  t.throws(function () {
+    p();
+  }, "no arguments");
+  t.throws(function () {
+    p({});
+  }, "no render property");
+  t.throws(function () {
+    p({render: 'string'});
+  }, "render property not a function");
+  t.throws(function () {
+    p({render() {return 'string';}});
+  }, "render function doesn't return a vtree");
+  t.throws(function () {
+    p({render() {return h();}});
+  }, "must have a name");
+  t.throws(function () {
+    p({render() {return h('aaaaaaaaaa');}});
+  }, "tagName must contain a dash");
+  t.doesNotThrow(function () {
+    p({render() {return h('el-two-d');}});
+  }, "acceptable arguments don't throw an error");
 });
 
-// 4
-test("Mutations on the element's attributes will trigger a render", function (t) {
-  t.plan(1);
-  bondo('el-four', function (el) {
-    return h('div#fourInner', el.attributes.foo.value);
+// three
+test("Replaces a Custom Element's DOM with a VDOM", function (t) {
+  t.plan(3);
+  t.equal(document.getElementById('id-three-old').tagName, 'DIV');
+  p({
+    render() {
+      return h('el-three', [
+        h('#id-three-new')
+      ]);
+    }
   });
-  document.getElementById('four').setAttribute('foo', 'baz');
+  t.equal(document.getElementById('id-three-old'), null);
+  t.equal(document.getElementById('id-three-new').tagName, 'DIV');
+});
+
+// four
+test("Created callback is executed", function (t) {
+  t.plan(1);
+  p({
+    render() {
+      return h('el-four');
+    },
+    created() {
+      t.pass("callback called");
+    }
+  });
+  t.timeoutAfter(1000);
+});
+
+// five
+test("Render function can use attributes of element to render", function (t) {
+  t.plan(1);
+  p({
+    render() {
+      let textFive = this.attributes['att-five'] ? this.attributes['att-five'].value: 'val-null';
+      return h('el-five', [
+        h('#id-five', textFive)
+      ]);
+    }
+  });
+  t.equal(document.getElementById('id-five').innerText, 'val-five');
+});
+
+// six
+test("Mutations of the element's attributes will trigger a render", function (t) {
+  t.plan(1);
+  p({
+    render() {
+      
+      let textSix = this.attributes['att-six'] ? this.attributes['att-six'].value : 'val-null';
+      return h('el-six#id-six', [
+        h('#id-six-child', textSix)
+      ]);
+    }
+  });
+  document.getElementById('id-six').setAttribute('att-six', 'val-six');
   // todo: if dom update takes too long this timeout interval might not work
   setTimeout(function () {
-    t.equal(document.getElementById('fourInner').innerText, 'baz');
+    t.equal(document.getElementById('id-six-child').innerText, 'val-six');
   }, 1000);
 });
 
-// 5
-test("event delegation works", function (t) {
-  t.plan(1);
-  function clickFive() {
-    t.pass('handler triggered');
-  }
-  function viewFive(el) {
-    return h('button#fiveButton', {'ev-click': clickFive}, "five button");
-  }
-  bondo('el-five', viewFive);
-  // manually trigger the click event
-  document.getElementById('fiveButton').dispatchEvent(new MouseEvent('click'));
-});
-
+/*
 // 6
 test("view function receives ...rest arguments", function (t) {
   t.plan(1);
@@ -94,7 +140,7 @@ test("example from README.md", function (t) {
 });
 
 // 8
-/*
+
 test("passing objects to attributes", function (t) {
   t.plan(1);
   let obj = {a:'a'};
