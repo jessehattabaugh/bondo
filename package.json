@@ -2,7 +2,7 @@
   "name": "bondo",
   "version": "2.0.3",
   "description": "a nano framework for web components",
-  "main": "index.js",
+  "main": "bondo.js",
   "scripts": {
     "start": "cd test; wzrd test.js -- -t babelify -dv"
   },
@@ -16,7 +16,7 @@
     "vdom",
     "virtual-dom",
     "custom-elements",
-    "Custom Elements",
+    "CustomElements",
     "web components"
   ],
   "author": "Jesse Hattabaugh <arkanciscan@gmail.com>",

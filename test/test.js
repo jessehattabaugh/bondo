@@ -1,44 +1,39 @@
 'use strict';
 
 const test = require('tape');
-const p = require('../ponies').register;
-const h = require('../ponies').h;
-
-// polyfills
-require('document-register-element');
+const bondo = require('../bondo').register;
+const h = bondo.h;
 
 // one
 test("Exports the right stuff", function (t) {
-  let testP = require('../ponies').register;
-  let testH = require('../ponies').h;
   t.plan(2);
-  t.equal(typeof testR, 'function');
-  t.equal(testH('div').tagName, 'DIV');
+  t.equal(typeof bondo, 'function');
+  t.equal(h('div').tagName, 'DIV');
 });
 
 // two 
 test("Throws exceptions on invalid arguments", function (t) {
   t.plan(7);
   t.throws(function () {
-    p();
+    bondo();
   }, "no arguments");
   t.throws(function () {
-    p({});
+    bondo({});
   }, "no render property");
   t.throws(function () {
-    p({render: 'string'});
+    bondo({render: 'string'});
   }, "render property not a function");
   t.throws(function () {
-    p({render() {return 'string';}});
-  }, "render function doesn't return a vtree");
+    bondo({render() {return 'string';}});
+  }, "render function doesn't return a vnode");
   t.throws(function () {
-    p({render() {return h();}});
+    bondo({render() {return h();}});
   }, "must have a name");
   t.throws(function () {
-    p({render() {return h('aaaaaaaaaa');}});
+    bondo({render() {return h('aaaaaaaaaa');}});
   }, "tagName must contain a dash");
   t.doesNotThrow(function () {
-    p({render() {return h('el-two-d');}});
+    bondo({render() {return h('el-two-d');}});
   }, "acceptable arguments don't throw an error");
 });
 
@@ -46,7 +41,7 @@ test("Throws exceptions on invalid arguments", function (t) {
 test("Replaces a Custom Element's DOM with a VDOM", function (t) {
   t.plan(3);
   t.equal(document.getElementById('id-three-old').tagName, 'DIV');
-  p({
+  bondo({
     render() {
       return h('el-three', [
         h('#id-three-new')
@@ -60,7 +55,7 @@ test("Replaces a Custom Element's DOM with a VDOM", function (t) {
 // four
 test("Created callback is executed", function (t) {
   t.plan(1);
-  p({
+  bondo({
     render() {
       return h('el-four');
     },
@@ -74,7 +69,7 @@ test("Created callback is executed", function (t) {
 // five
 test("Render function can use attributes of element to render", function (t) {
   t.plan(1);
-  p({
+  bondo({
     render() {
       let textFive = this.attributes['att-five'] ? this.attributes['att-five'].value: 'val-null';
       return h('el-five', [
@@ -88,7 +83,7 @@ test("Render function can use attributes of element to render", function (t) {
 // six
 test("Mutations of the element's attributes will trigger a render", function (t) {
   t.plan(1);
-  p({
+  bondo({
     render() {
       
       let textSix = this.attributes['att-six'] ? this.attributes['att-six'].value : 'val-null';

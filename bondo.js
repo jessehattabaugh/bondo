@@ -1,15 +1,21 @@
 'use strict';
 
-const h = exports.h = require('virtual-dom/h');
+const h = register.h = require('virtual-dom/h');
 const diff = require('virtual-dom/diff');
 const patch = require('virtual-dom/patch');
 const virtualize = require('vdom-parser');
+
+// polyfill document.registerElement() because few browsers have it yet
+// http://caniuse.com/#search=registerElement
+require('document-register-element');
 
 // start dom-delegator to look for ev-* attributes
 let delegator = require("dom-delegator");
 let d = delegator();
 
-exports.register = function (def) {
+module.exports = register;
+
+function register(def) {
   /* def = { 
     render() { return vtree },
     is (string): the tagName of an HTML element to inherit from, defaults to 'div',
