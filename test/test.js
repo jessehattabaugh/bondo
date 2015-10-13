@@ -1,17 +1,19 @@
 'use strict';
 
 const test = require('tape');
-const p = require('../ponies');
-const h = p.h;
+const p = require('../ponies').register;
+const h = require('../ponies').h;
 
 // polyfills
 require('document-register-element');
 
 // one
 test("Exports the right stuff", function (t) {
+  let testP = require('../ponies').register;
+  let testH = require('../ponies').h;
   t.plan(2);
-  t.equal(typeof p, 'function');
-  t.equal(p.h('div').tagName, 'DIV');
+  t.equal(typeof testR, 'function');
+  t.equal(testH('div').tagName, 'DIV');
 });
 
 // two 
@@ -19,7 +21,7 @@ test("Throws exceptions on invalid arguments", function (t) {
   t.plan(7);
   t.throws(function () {
     p();
-  }, "no argument");
+  }, "no arguments");
   t.throws(function () {
     p({});
   }, "no render property");

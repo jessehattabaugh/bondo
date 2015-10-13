@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/jessehattabaugh/ponies#readme",
   "dependencies": {
+    "dom-delegator": "^13.1.0",
     "vdom-parser": "^1.2.1",
     "virtual-dom": "^2.1.1"
   },

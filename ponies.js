@@ -1,13 +1,15 @@
 'use strict';
 
-const h = register.h = require('virtual-dom/h');
+const h = exports.h = require('virtual-dom/h');
 const diff = require('virtual-dom/diff');
 const patch = require('virtual-dom/patch');
 const virtualize = require('vdom-parser');
 
-module.exports = register;
-  
-function register(def) {
+// start dom-delegator to look for ev-* attributes
+let delegator = require("dom-delegator");
+let d = delegator();
+
+exports.register = function (def) {
   /* def = { 
     render() { return vtree },
     is (string): the tagName of an HTML element to inherit from, defaults to 'div',
@@ -39,7 +41,7 @@ function register(def) {
   }
   
   class CustomElement extends Object.getPrototypeOf(el).constructor {
-    _update() {
+    update() {
       let newVdom = this.render();
       patch(this, diff(this._vdom, newVdom));
       this._vdom = newVdom;
@@ -50,7 +52,7 @@ function register(def) {
     // http://www.html5rocks.com/en/tutorials/webcomponents/customelements/#lifecycle
     createdCallback() {
       this._vdom = virtualize(this);
-      this._update();
+      this.update();
       if (this.created) this.created();
       console.info(tagName + " created");
     }
@@ -59,7 +61,7 @@ function register(def) {
       console.info(tagName + " attached");
     }
     attributeChangedCallback(attrName, oldVal, newVal) {
-      this._update();
+      this.update();
       if (this.changed) this.changed(attrName, oldVal, newVal);
       console.info(tagName + " changed");
     }
