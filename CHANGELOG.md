@@ -8,7 +8,13 @@ So, I changed the signature of the main function to accept a definition object w
 
 Another major change is that all of the properties of the definition object are assigned to the prototype of the Custom Element. This includes `render()`. Because of that it was unecessary to pass the element as an argument since it will be available as `this`. The main reason for this change though was to allow the user to provide custom lifecycle callback functions. For this I decided to abbreviate the standard Custom Element lifecycle `*Callback()` function named. So `created()`, `attached()`, `changed()`, and `detached()` will be called after Bondo is done handling these callbacks itself. I might consider aliasing these if it becomes necessary. 
 
-A couple implementation improvements I made along the way; removed the MutationObserver, and use ES6 classes to create the Custom Element prototype. Not sure how I missed this back in v2.0, but Custom Elements already had an `attributeChangedCallback()` which works just fine. Saves me a polyfill! The classes are just a cleaner way to subclass the HTMLElement. I got the idea from 
+A couple implementation improvements I made along the way; [removed the MutationObserver dependency](https://github.com/jessehattabaugh/bondo/commit/d85eb084c5c08f47e5c14dbb859e08e9e3a97130#diff-d27b868d70024763b7b8eb1cf1648096L43), and [used ES6 classes to create the Custom Element prototype](https://github.com/jessehattabaugh/bondo/compare/october15?expand=1#diff-168726dbe96b3ce427e7fedce31bb0bcR43). Not sure how I missed this back in v2.0, but Custom Elements already had an `attributeChangedCallback()` which works just fine. Saves me a polyfill! The classes are just a cleaner way to subclass the HTMLElement. I got the idea from [this guy](http://h3manth.com/new/blog/2015/custom-elements-with-es6/).
+
+Oh and one more thing; when a custom element is first created I don't hollow it out by destroying it's child nodes. I make a virtual-dom copy of them using `vdom-parser` and then call render and diff against that. Hopefully that's more efficient, but honestly I didn't do any profiling to test it. 
+
+### Caveats
+
+I'm pretty sure that `render()` is going to blow away any and all attributes that aren't set by `render()`. This means if the user of the componenet gives it any classes or such, they'll be lost. I know that's bad. I haven't decided what to do about that. Ideally, attributes present at creation would be preserved, but would still be able to be overridden by `render()`.
 
 ##v2.0 - Trying something new. 
 

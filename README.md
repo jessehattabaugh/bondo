@@ -5,8 +5,8 @@ This is just a little glue between [Custom Elements](https://w3c.github.io/webco
 ## Usage
 
 ```es6
-const register = require('bondo').register;
-const h = require('bondo').h;
+const bondo = require('bondo');
+const h = bondo.h;
 
 register({
   render() {
