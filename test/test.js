@@ -1,7 +1,6 @@
 'use strict';
-
 const test = require('tape');
-const bondo = require('../bondo').register;
+const bondo = require('../bondo');
 const h = bondo.h;
 
 // one
