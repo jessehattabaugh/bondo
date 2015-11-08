@@ -65,11 +65,11 @@ It's simple, it works, [there're tests](https://github.com/jessehattabaugh/bondo
 - [ ] Get a better name, vdom-elements, Ponents, Ponies, maybe see if substack will give me "Pony"
 - [ ] Proper JSDoc comments
 - [ ] Run tests and eslint before publishing
+- [ ] Let the user bring their own virtual elements
 
 ## Credits
 
 - [Matt Esch - virtual-dom](https://github.com/Matt-Esch/virtual-dom)
-- [Raynos (Jake Verbaten) - dom-delegator](https://github.com/Raynos/dom-delegator)
 - [Andrea Giammarchi - document.registerElement polyfill](https://github.com/WebReflection/document-register-element)
 
 ## License

@@ -9,10 +9,6 @@ const virtualize = require('vdom-parser');
 // http://caniuse.com/#search=registerElement
 require('document-register-element');
 
-// start dom-delegator to look for ev-* attributes
-let delegator = require("dom-delegator");
-let d = delegator();
-
 module.exports = register;
 
 function register(def) {
