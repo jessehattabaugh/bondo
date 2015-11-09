@@ -1,7 +1,6 @@
 'use strict';
-
 const test = require('tape');
-const bondo = require('../bondo').register;
+const bondo = require('../bondo');
 const h = bondo.h;
 
 // one
@@ -85,7 +84,6 @@ test("Mutations of the element's attributes will trigger a render", function (t)
   t.plan(1);
   bondo({
     render() {
-      
       let textSix = this.attributes['att-six'] ? this.attributes['att-six'].value : 'val-null';
       return h('el-six#id-six', [
         h('#id-six-child', textSix)
@@ -98,50 +96,3 @@ test("Mutations of the element's attributes will trigger a render", function (t)
     t.equal(document.getElementById('id-six-child').innerText, 'val-six');
   }, 1000);
 });
-
-/*
-// 6
-test("view function receives ...rest arguments", function (t) {
-  t.plan(1);
-  bondo('el-six', function (el, a) {
-    return h('#six', a.foo);
-  }, {foo: 'bar'});
-  t.equal(document.getElementById('six').innerHTML, 'bar');
-});
-
-// 7
-test("example from README.md", function (t) {
-  t.plan(2);
-  function view(el, actions) {
-    return h('main', [
-      h('h1#helloSeven', 'Hello ' + el.getAttribute('you') || 'World'),
-      h('input#inputSeven', {'ev-keyup': actions.userInput.bind(el)})
-    ]);
-  }
-  bondo('my-widget', view, {
-    userInput: function (ev) {
-      this.setAttribute('you', ev.target.value);
-    }
-  });
-  let hello = document.getElementById('helloSeven');
-  t.equal(hello.textContent, 'Hello Jesse');
-  // change the value of the input and trigger a keyup
-  let input = document.getElementById('inputSeven');
-  input.value = 'a';
-  event.emit(input, 'keyup');
-  setTimeout(function () {
-    t.equal(hello.textContent, 'Hello a');
-  }, 1000);
-});
-
-// 8
-
-test("passing objects to attributes", function (t) {
-  t.plan(1);
-  let obj = {a:'a'};
-  bondo('el-eight', function (el, a) {
-    return h('#eight', a.obj);
-  }, {foo: obj});
-  t.equal(document.getElementById('eight').innerHTML, 'bar');
-});
-*/

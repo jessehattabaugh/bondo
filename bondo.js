@@ -9,10 +9,6 @@ const virtualize = require('vdom-parser');
 // http://caniuse.com/#search=registerElement
 require('document-register-element');
 
-// start dom-delegator to look for ev-* attributes
-let delegator = require("dom-delegator");
-let d = delegator();
-
 module.exports = register;
 
 function register(def) {
@@ -41,12 +37,15 @@ function register(def) {
   if (!Object.getPrototypeOf(h()).isPrototypeOf(vdom)) {
     throw new Error("Render function must return a vdom node");
   }
+  
+  // Check for a dash in the tagname
   let tagName = vdom.tagName;
   if (tagName.indexOf('-') === -1) {
     throw new Error("The tagName of the root vnode returned by render() must contain a dash");
   }
   
   class CustomElement extends Object.getPrototypeOf(el).constructor {
+    
     update() {
       let newVdom = this.render();
       patch(this, diff(this._vdom, newVdom));
@@ -62,15 +61,18 @@ function register(def) {
       if (this.created) this.created();
       console.info(tagName + " created");
     }
+    
     attachedCallback() {
       if (this.attached) this.attached();
       console.info(tagName + " attached");
     }
+    
     attributeChangedCallback(attrName, oldVal, newVal) {
       this.update();
       if (this.changed) this.changed(attrName, oldVal, newVal);
       console.info(tagName + " changed");
     }
+    
     detachedCallback() {
       if (this.detached) this.detached();
       console.info(tagName + " detached");

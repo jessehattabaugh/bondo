@@ -1,12 +1,16 @@
 # Release Notes
 
+##v3.0.1 - Babel 6
+
+Babel 6 just came out, and I've been fussing with it else where so I decided to upgrade it here too. 
+
 ##v3 - Definition Object 
 
 I've been using React at work and I'm getting more accustomed to the whole single object argument pattern. Also, I've realized how important it is to be able to hook into the lifecycle events for initializing third-party libraries and stuff. 
 
 So, I changed the signature of the main function to accept a definition object with a required `render()` property. This function must return a VirtualNode. Unlike the `view()` argument from v2.0, the root of the vtree must include the root node of the Custom Element. This is because the `tagName` property of the returned node will be used as the name of the Custom Element when it's registered. A side-effect of this is that the `render()` function now has the ability to change the element itself (React can't do that). For this reason, setting the attributes of the Custom Element from within the render function is discouraged because it would likely trigger an update, possibly leading to an infinite loop.
 
-Another major change is that all of the properties of the definition object are assigned to the prototype of the Custom Element. This includes `render()`. Because of that it was unecessary to pass the element as an argument since it will be available as `this`. The main reason for this change though was to allow the user to provide custom lifecycle callback functions. For this I decided to abbreviate the standard Custom Element lifecycle `*Callback()` function named. So `created()`, `attached()`, `changed()`, and `detached()` will be called after Bondo is done handling these callbacks itself. I might consider aliasing these if it becomes necessary. 
+Another major change is that all of the properties of the definition object are assigned to the prototype of the Custom Element. This includes `render()`. Because of that it was unecessary to pass the element as an argument since it will be available as `this`. The main reason for this change though was to allow the user to provide custom lifecycle callback functions. For this I decided to abbreviate the standard Custom Element lifecycle `*Callback()` function names. So `created()`, `attached()`, `changed()`, and `detached()` will be called after Bondo is done handling these callbacks itself. I might consider aliasing these if it becomes necessary. 
 
 A couple implementation improvements I made along the way; [removed the MutationObserver dependency](https://github.com/jessehattabaugh/bondo/commit/d85eb084c5c08f47e5c14dbb859e08e9e3a97130#diff-d27b868d70024763b7b8eb1cf1648096L43), and [used ES6 classes to create the Custom Element prototype](https://github.com/jessehattabaugh/bondo/compare/october15?expand=1#diff-168726dbe96b3ce427e7fedce31bb0bcR43). Not sure how I missed this back in v2.0, but Custom Elements already had an `attributeChangedCallback()` which works just fine. Saves me a polyfill! The classes are just a cleaner way to subclass the HTMLElement. I got the idea from [this guy](http://h3manth.com/new/blog/2015/custom-elements-with-es6/).
 
