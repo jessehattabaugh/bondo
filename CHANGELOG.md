@@ -1,5 +1,52 @@
 # Release Notes
 
+##v3.1 - Planning
+
+In the last version I decided to patch the custom element's entire dom node with the output of the render function. The motivation for this change was mostly to avoid requiring to have a single child node [the way React does](https://facebook.github.io/react/docs/component-specs.html#render). I find that awkward because say you have a <my-list> list element. You want:
+
+```html
+<my-list>
+  <my-item></my-item>
+  ...
+</my-list>
+```
+
+not:
+
+```html
+<my-list>
+  <div>
+    <my-item></my-item>
+  </div>
+</my-list>
+```
+
+The other benefit I got was eliminating the need for a separate "tagName" declaration, either as an argument:
+
+```js
+bondo('my-list', {render(){...}});
+```
+
+or a property of the definition object:
+
+```js
+bondo({tagName: 'my-list', render() {...}});
+```
+
+I could just intuit the name of the custom element from the name of the root element returned by `render()` like so:
+
+```js
+bondo({render(){return h('my-list')}});
+```
+
+However, it then occurred to me that this would allow users to modify the attributes of the root node, which would cause an infinite loop. Additionally, patching the user defined customElement node would blow away any user supplied attributes of the node. In other words, it's a total footgun. 
+
+I felt like the aesthetics outweighed the potential problems, and who knows maybe the extra power would come in handy somehow. But then I started building an actual app with Bondo, and I realized something. It's kind of redundant to have to manually register all my components. It would be a lot easier to just point bondo at a directory of commonJS modules and tell it to register them all. And if I did that, I'd likely want to name the files after the custom elements they define. And if I'm doing that, then why not intuit the tagName from the filenames?
+
+So, here's the plan; the return value of `render()` is going to represent the *children* of the customNode again, not the node itself. I still won't require a single child node, by accepting an array of vnodes as a return value. I'll have to figure out how to handle this at patch time. Then I'll take the tagName from a property on the def object like in the example above. However, if bondo is called with a single string argument, I'll assume that this is a directory of CommonJS modules, and I'll loop over it requiring all the files inside and using their filenames as tagName.
+
+This API seems better for building actual apps, eliminates the footgun, and still eliminates the awkwardness of React. Now I just have to do it :-)
+
 ##v3.0.1 - Babel 6
 
 Babel 6 just came out, and I've been fussing with it else where so I decided to upgrade it here too. 
