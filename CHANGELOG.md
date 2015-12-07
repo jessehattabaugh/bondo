@@ -2,7 +2,7 @@
 
 ##v3.1 - Planning
 
-In the last version I decided to patch the custom element's entire dom node with the output of the render function. The motivation for this change was mostly to avoid requiring to have a single child node [the way React does](https://facebook.github.io/react/docs/component-specs.html#render). I find that awkward because say you have a <my-list> list element. You want:
+In the last version I decided to patch the custom element's entire dom node with the output of the render function. The motivation for this change was mostly to avoid requiring `render()` to have a single child node [the way React does](https://facebook.github.io/react/docs/component-specs.html#render). I find that awkward because say you have a <my-list> element. You want:
 
 ```html
 <my-list>
@@ -17,6 +17,7 @@ not:
 <my-list>
   <div>
     <my-item></my-item>
+    ...
   </div>
 </my-list>
 ```
@@ -45,7 +46,7 @@ I felt like the aesthetics outweighed the potential problems, and who knows mayb
 
 So, here's the plan; the return value of `render()` is going to represent the *children* of the customNode again, not the node itself. I still won't require a single child node, by accepting an array of vnodes as a return value. I'll have to figure out how to handle this at patch time. Then I'll take the tagName from a property on the def object like in the example above. However, if bondo is called with a single string argument, I'll assume that this is a directory of CommonJS modules, and I'll loop over it requiring all the files inside and using their filenames as tagName.
 
-This API seems better for building actual apps, eliminates the footgun, and still eliminates the awkwardness of React. Now I just have to do it :-)
+This API seems better for building actual apps, eliminates the footgun, and still avoids the awkwardness of React. Now I just have to do it :-)
 
 ##v3.0.1 - Babel 6
 
